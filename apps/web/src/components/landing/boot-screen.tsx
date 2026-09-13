@@ -17,10 +17,11 @@ const BOOT_LINES = [
 ] as const;
 
 const BANNER = String.raw`
-  ____  ____   __   ____  _  _  ____  ____   __   __ _  ____
- (  _ \(  _ \ /  \ (  _ \( \/ )(  _ \(  _ \ /  \ (  ( \/ ___)
-  ) __ ( )   /(  O ) ) __/ )  /  ) __/ )   /(  O )/    /\___ \
- (____/(___) \ \__/ (____)(__/  (__)  (___) \ \__|\_)__)(____/
+ ____    _    ____   ____ _____  __        ___    ____  ____
+| __ )  / \  |  _ \ / ___| ____| \ \      / / \  |  _ \/ ___|
+|  _ \ / _ \ | | | | |  _|  _|    \ \ /\ / / _ \ | |_) \___ \
+| |_) / ___ \| |_| | |_| | |___    \ V  V / ___ \|  _ < ___) |
+|____/_/   \_\____/ \____|_____|    \_/\_/_/   \_\_| \_\____/
 `;
 
 const GRID_COLS = 7;
@@ -41,16 +42,17 @@ function makeBars(): Bars {
 export function BootScreen() {
   const router = useRouter();
   const [lineCount, setLineCount] = useState(0);
-  const [start, setStart] = useState(() => new Date());
+  const [start, setStart] = useState<Date | null>(null);
   const [tiles, setTiles] = useState<(Bars | null)[]>(() =>
-    Array.from({ length: TILE_COUNT }, (_, i) =>
-      i % 5 === 0 ? makeBars() : null
-    )
+    Array(TILE_COUNT).fill(null)
   );
   const reduced = useRef(false);
 
   useEffect(() => {
     reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setStart(new Date());
+    // Seed the grid post-mount so server and client markup agree.
+    setTiles(Array.from({ length: TILE_COUNT }, (_, i) => (i % 5 === 0 ? makeBars() : null)));
   }, []);
 
   // Boot log: one line every ~1.4–2.2s.
@@ -79,6 +81,7 @@ export function BootScreen() {
 
   const done = lineCount >= BOOT_LINES.length;
   const stamp = (offsetSec: number) => {
+    if (!start) return "--:--:--";
     const d = new Date(start.getTime() + offsetSec * 1000);
     return d.toTimeString().slice(0, 8);
   };
@@ -93,7 +96,7 @@ export function BootScreen() {
         <div className="mt-10 space-y-6 text-[13px] leading-loose sm:text-sm">
           {BOOT_LINES.slice(0, 2).map((l, i) => (
             <p key={l} className="whitespace-pre">
-              <span className="text-neutral-500">{stamp(i * 3)} </span>
+              <span suppressHydrationWarning className="text-neutral-500">{stamp(i * 3)} </span>
               {l}
             </p>
           ))}
@@ -109,14 +112,14 @@ export function BootScreen() {
 
           {BOOT_LINES.slice(2, lineCount).map((l, i) => (
             <p key={l} className="whitespace-pre">
-              <span className="text-neutral-500">{stamp((i + 2) * 3 + 4)} </span>
+              <span suppressHydrationWarning className="text-neutral-500">{stamp((i + 2) * 3 + 4)} </span>
               {l}
             </p>
           ))}
 
           {done && (
             <div className="animate-in fade-in pt-4 duration-500">
-              <p className="text-neutral-500">{stamp(40)} COURTROOM READY.</p>
+              <p className="text-neutral-500"><span suppressHydrationWarning>{stamp(40)}</span> COURTROOM READY.</p>
               <Button
                 onClick={() => router.push("/court")}
                 className="mt-4 border border-neutral-400 bg-transparent font-mono text-xs tracking-widest text-neutral-100 uppercase hover:bg-violet-600 hover:text-white"
