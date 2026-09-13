@@ -6,14 +6,15 @@ import { Button } from "@/components/ui/button";
 
 // Mimic of Render's free-tier cold-start loading page: timestamped boot log,
 // dashed ASCII banner, and a decorative glitch grid. Fixed to one viewport.
+// The sequence is a short flourish, not a wait: ~0.5s per line, Enter is
+// clickable early, and the page auto-advances when it finishes.
+const LINE_DELAY_MS = 520;
+
 const BOOT_LINES = [
   "INCOMING HTTP REQUEST DETECTED ...",
   "SERVICE WAKING UP ...",
   "SEATING THE 24 MEMBERS ...",
   "SHUFFLING SECRET ROLES ...",
-  "DEALING GAME BADGES ...",
-  "OPENING MATCH CHAT ...",
-  "LIGHTING THE COURTROOM ...",
 ] as const;
 
 const BANNER = String.raw`
@@ -55,15 +56,21 @@ export function BootScreen() {
     setTiles(Array.from({ length: TILE_COUNT }, (_, i) => (i % 5 === 0 ? makeBars() : null)));
   }, []);
 
-  // Boot log: one line every ~1.4–2.2s.
+  // Boot log: fast lines; the page auto-advances shortly after the last one.
   useEffect(() => {
     if (lineCount >= BOOT_LINES.length) return;
-    const t = setTimeout(
-      () => setLineCount((c) => c + 1),
-      reduced.current ? 50 : 1400 + Math.random() * 800
-    );
+    const t = setTimeout(() => setLineCount((c) => c + 1), reduced.current ? 40 : LINE_DELAY_MS);
     return () => clearTimeout(t);
   }, [lineCount]);
+
+  useEffect(() => {
+    if (lineCount < BOOT_LINES.length || !start) return;
+    const t = setTimeout(
+      () => router.push("/court"),
+      reduced.current ? 600 : 1100
+    );
+    return () => clearTimeout(t);
+  }, [lineCount, start, router]);
 
   // Glitch grid: keep flipping a few tiles.
   useEffect(() => {
@@ -117,9 +124,13 @@ export function BootScreen() {
             </p>
           ))}
 
-          {done && (
+          {lineCount >= 2 && (
             <div className="animate-in fade-in pt-4 duration-500">
-              <p className="text-neutral-500"><span suppressHydrationWarning>{stamp(40)}</span> COURTROOM READY.</p>
+              {done && (
+                <p className="text-neutral-500">
+                  <span suppressHydrationWarning>{stamp(BOOT_LINES.length * 2 + 2)}</span> COURTROOM READY.
+                </p>
+              )}
               <Button
                 onClick={() => router.push("/court")}
                 className="mt-4 border border-neutral-400 bg-transparent font-mono text-xs tracking-widest text-neutral-100 uppercase hover:bg-violet-600 hover:text-white"

@@ -16,6 +16,8 @@ Adopted from apollo:
 
 Not adopted: apollo's card-grid explorer composition (the courtroom scene is our centerpiece), apollo's components themselves, and any commercial font.
 
+The boot-screen landing (`/`) is a Render cold-start pastiche: short timestamped boot log, dashed ASCII banner, and a violet glitch grid. The grid is the future slot for the **24 member face cards** — placeholder glitch tiles now, member portraits once the manga art set exists (accepted 2026-09-14). The sequence auto-advances to the courtroom; it is a flourish, not a wait.
+
 The chrome is dark; the illustrated courtroom scene keeps its warm manga-paper art direction inside the frame. The scene is content, like apollo's photocards.
 
 ## Experience
