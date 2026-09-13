@@ -39,6 +39,12 @@ Documentation changes can be checked with `git diff --check` and a review of rel
 
 ## Deploy
 
-Not hosted yet. This project deploys only from a **buxor-owned** hosting account with buxor-only credentials. Once a buxor Vercel (or Render) token exists in `~/.tokens`, `apps/web` deploys with a direct upload or service create; no GitHub app or external collaborator is involved.
+Live at **https://badgewars.vercel.app** — Vercel project `badgewars` in the `buxors` org, deployed by direct upload from `apps/web` with `VERCEL_TOKEN_BUXOR` (no GitHub integration, no external identity). Redeploy after merging to `main`:
+
+```
+npx vercel --prod --yes --token "$VERCEL_TOKEN_BUXOR" --cwd apps/web
+```
+
+This project uses buxor-owned credentials only — never another workspace's token.
 
 Badge Wars is a working project name. No official tripleS, MODHAUS, or Cosmo partnership or asset license is established by this repository.
