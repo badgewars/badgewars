@@ -9,14 +9,14 @@ Updated 2026-09-14. The owner accepted the courtroom, role names, single-accused
 | Member | The tripleS identity a seat embodies, independent of secret role |
 | Citizen | Faction trying to remove all Mafia |
 | Detective | Citizen faction; investigates one other active member at night |
-| Doctor | Citizen faction; protects one active member at night |
-| Mafia | Hidden faction; collectively attacks one active non-Mafia member at night |
+| Lawyer | Citizen faction; secures one active member's alibi at night |
+| Mafia | Hidden faction; collectively frames one active non-Mafia member at night |
 | Active cast | Seats with a game badge; may accuse and vote |
 | Gallery | Removed cast; loses the game badge, Match Chat writing, accusation, votes, and night powers; may talk with other removed members in the gallery channel |
 | Audience | Paid attendees outside the cast; read the match and make predictions |
 | Game badge | A seat's active status in this match, separate from NFT achievements |
 
-Start with 16 ordinary Citizens, one Detective, one Doctor, and six Mafia: 18 Citizen-faction seats versus six Mafia. All 24 member identities appear. Special roles do not change the public portrait or label.
+Start with 16 ordinary Citizens, one Detective, one Lawyer, and six Mafia: 18 Citizen-faction seats versus six Mafia. All 24 member identities appear. Special roles do not change the public portrait or label.
 
 ## Before play
 
@@ -37,8 +37,8 @@ Start with discussion. Nobody loses a badge before the opening conversation.
 | Discussion | 180 seconds | Read/send Match Chat and inspect public histories |
 | Accusation | 30 seconds | Accuse one other active member or abstain |
 | Defense | 30 seconds | The sole accused member writes a defense |
-| Verdict | 30 seconds | Active seats choose Remove badge or Spare |
-| Night | 45 seconds | Mafia attack; Doctor protects; Detective investigates |
+| Verdict | 30 seconds | Active seats choose Arrest or Acquit |
+| Night | 45 seconds | Mafia frames; Lawyer secures an alibi; Detective investigates |
 | Morning | 15 seconds | Announce public effects and check the result |
 
 A full round is 5.5 minutes. Twelve rounds plus opening and closing are roughly 75 minutes; this is a pacing hypothesis. Skipped trials and early victories shorten matches.
@@ -47,7 +47,7 @@ Cast discussion is open during discussion and accusation. During defense only th
 
 **Removed members do not speak in Match Chat** — the classic rule: once your badge is gone, your public voice is gone. A removed member reads Match Chat and may write only in the gallery channel, a removed-members-only room. Gallery chat gives a night-one removal somewhere to enjoy the match without any route back into the game: active players and the audience cannot see it during play, it is excluded from the public archive, and removed members have nothing to spend it on. Removed Mafia also lose the Mafia channel immediately and cannot regain it.
 
-Every elimination, day or night, is the same public event: **the member loses their game badge** and moves to the gallery. The verdict removes it by vote; the Mafia remove it by attack at night. One verb, no deaths, no arrests — the courtroom convicts and spares, and the badge is the player's life. Morning announcements state who lost their badge, never how or why.
+Every elimination, day or night, is an **arrest**: the member loses their game badge, their public voice ends, and they are taken to the gallery. By day the court arrests on a verdict; by night the Mafia frame someone and the arrest lands at morning. One verb, no deaths — this is a crime procedural, and the badge is the player's license to play. Morning announcements state who was arrested, never how the frame failed or who ordered it.
 
 Start with three messages of up to 240 characters per active cast member per discussion/accusation period. Allow one defense of up to 500 characters. Measure reading load before adopting these limits. Accepted text cannot be edited after the fact. Quotes do not bypass limits.
 
@@ -57,19 +57,19 @@ Each active seat can accuse one other active seat. The latest valid choice recei
 
 The highest accusation count selects one accused member. Break ties using a published circular member order, starting at a different position each round. Skip defense and verdict if nobody is accused.
 
-Every active seat, including the accused, may vote Remove badge or Spare. Votes can change until the deadline; the latest valid choice counts. Missing ballots abstain. Publish ballots together after locking them.
+Every active seat, including the accused, may vote Arrest or Acquit. Votes can change until the deadline; the latest valid choice counts. Missing ballots abstain. Publish ballots together after locking them.
 
-Remove the accused only when Remove votes exceed Spare votes. Ties, including zero-zero, spare them. This is a majority of non-abstaining ballots, not all active seats. Move the removed member to the gallery without revealing their role. Check victory immediately; skip night if the match has ended.
+Arrest the accused only when Arrest votes exceed Acquit votes. Ties, including zero-zero, acquit. This is a majority of non-abstaining ballots, not all active seats. Move the arrested member to the gallery without revealing their role. Check victory immediately; skip night if the match has ended.
 
 ## Night
 
 Use the same snapshot of active seats at night opening. Accept changes until the deadline and resolve together without dependence on arrival order.
 
-- Each active Mafia seat chooses one active non-Mafia target. Unique plurality produces one attack; tied highest votes or no votes produce none. Active Mafia coordinate in private faction chat during night.
-- The Doctor selects an active seat, including themselves. They cannot protect the same seat on consecutive nights. A missed night clears that previous-night restriction. Protection blocks an attack on the selected seat. Do not send success confirmation.
+- Each active Mafia seat chooses one active non-Mafia target to frame. Unique plurality produces one frame; tied highest votes or no votes produce none. Active Mafia coordinate in private faction chat during night.
+- The Lawyer selects an active seat, including themselves, and secures that seat's alibi. They cannot secure the same seat on consecutive nights. A missed night clears that previous-night restriction. A secured alibi blocks a frame on the selected seat. Do not send success confirmation.
 - The Detective selects another active seat. Privately return only Mafia or Citizen after resolution. Honor a valid investigation even if the Detective loses their badge that night.
 - Missing actions do nothing unless a permitted bot has already supplied a legal choice.
-- Announce who lost their badge or that nobody did. Do not reveal failed-attack causes, private targets, or roles.
+- Announce who was arrested or that no one was. Do not reveal why a frame failed, private targets, or roles.
 
 Gallery members receive no new powers and no faction-chat messages. Removed Mafia still remember teammates; the rules cannot erase knowledge. A removed Detective retains results already received. Gallery chatter cannot change the game: it reaches only other removed members, stays out of the archive, and carries no vote, action, or public voice.
 
@@ -95,9 +95,9 @@ A command carries match ID, phase ID, authenticated actor, unique command ID, an
 | Send message | Channel-authorized account | Append text within phase/rate limits |
 | Accuse | Active cast | Set one active non-self target or abstention |
 | Defend | Accused member | Append defense within its window |
-| Vote | Active cast | Set Remove or Spare |
-| Attack | Active Mafia | Set legal night target |
-| Protect | Active Doctor | Set legal protection target |
+| Vote | Active cast | Set Arrest or Acquit |
+| Frame | Active Mafia | Set legal night target |
+| Alibi | Active Lawyer | Set legal alibi target |
 | Investigate | Active Detective | Set legal investigation target |
 | Predict | Eligible audience | Lock one valid prediction with no revision |
 | Award vote | Eligible participant | Vote in the specified postgame award |

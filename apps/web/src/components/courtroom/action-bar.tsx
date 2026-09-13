@@ -53,18 +53,18 @@ export function ActionBar({
       return (
         <Action
           title={`${target.name} is on trial.`}
-          hint={choice ? `Your verdict: ${choice}.` : "Remove must receive more votes than Spare. Ties spare."}
+          hint={choice ? `Your verdict: ${choice}.` : "Arrest must receive more votes than Acquit. Ties acquit."}
         >
-          <Button variant="destructive" onClick={() => onChoice("Remove")}>
-            Remove badge
+          <Button variant="destructive" onClick={() => onChoice("Arrest")}>
+            Arrest
           </Button>
-          <Button variant="outline" onClick={() => onChoice("Spare")}>
-            Spare
+          <Button variant="outline" onClick={() => onChoice("Acquit")}>
+            Acquit
           </Button>
         </Action>
       );
     case "night": {
-      const verb = role === "Detective" ? "Investigate" : role === "Doctor" ? "Protect" : role === "Mafia" ? "Attack" : null;
+      const verb = role === "Detective" ? "Investigate" : role === "Lawyer" ? "Alibi" : role === "Mafia" ? "Frame" : null;
       return (
         <Action
           title={verb ? `${verb} one member.` : "Night is in progress."}
@@ -85,7 +85,7 @@ export function ActionBar({
       return (
         <Action
           title="Morning arrives."
-          hint="Sample public outcome: nobody lost their badge. The cause stays hidden."
+          hint="Sample public outcome: no one was arrested. The cause stays hidden."
         />
       );
     case "finale":

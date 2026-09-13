@@ -10,7 +10,7 @@ Direction: earned NFT editions for multiple recipients. Updated 2026-09-14 for M
 | Citizen Victory | Win with the Citizen faction with eligible participation | Postgame; removal alone does not disqualify |
 | Mafia Victory | Win with the Mafia faction with eligible participation | Postgame; removal alone does not disqualify |
 | Mafia Hunter | As a Citizen, accuse Mafia, vote Remove in their trial, and see them removed that day | Postgame |
-| Lifesaver | As Doctor, protect another Citizen-faction seat against an actual attack | Postgame; self-protection excluded |
+| Alibi | As Lawyer, secure the alibi that blocks an actual frame | Postgame; self-protection excluded |
 | Case Builder | As Detective, inspect two distinct Mafia members | Postgame |
 | Great Escape | As Mafia, survive trial and later win with the faction | Postgame |
 | Held Your Ground | Survive trial while personally controlling the accused seat | Public celebration allowed; final award postgame |

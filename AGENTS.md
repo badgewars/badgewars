@@ -20,7 +20,7 @@ The repository contains design documentation and a standalone layout study in `d
 ## Product boundaries
 
 - The launch concept is one weekly, synchronous, live-text Mafia event with all 24 tripleS member identities represented. See PRODUCT for the status of specific choices.
-- Use Mafia, Citizens, Detective, and Doctor consistently. The current design has one accused member, Remove/Spare verdicts, and a non-voting gallery. Every elimination is a badge loss ("removed"), day or night; removed members lose Match Chat writing and the Mafia channel for good, and may talk only in the removed-only gallery channel. The earlier two-nominee trial and jury ballot are superseded.
+- Use Mafia, Citizens, Detective, and Lawyer consistently. The current design has one accused member, Arrest/Acquit verdicts, and a non-voting gallery. Every elimination is an arrest — by day on a verdict, by night through a Mafia frame; arrested members lose Match Chat writing and the Mafia channel for good, and may talk only in the removed-only gallery channel. The earlier two-nominee trial, jury ballot, Doctor/protect language, and Remove/Spare verdicts are superseded.
 - Keep the courtroom in the center and Match Chat on the right. Spectators also get Audience Chat; cast accounts cannot access it during play. Portraits stay present, with large spotlights for trials and selected members.
 - Live access is paid for both cast and audience. The leaderboard houses post-event highlights, recaps, and public chat/action replay. Private faction chat stays excluded by default.
 - There is no wagering, prize pool, or staking of ETH, COMO, or Objekts. A ticket buys event participation; a cast seat is not guaranteed.

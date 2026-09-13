@@ -33,7 +33,7 @@ export const PHASE_CLOCKS: Record<Phase, string> = {
   finale: "—",
 };
 
-export type SeatRole = "Citizen" | "Mafia" | "Detective" | "Doctor";
+export type SeatRole = "Citizen" | "Mafia" | "Detective" | "Lawyer";
 
 export type Member = {
   seat: number;
@@ -52,7 +52,7 @@ export const FIXTURE_MAFIA = new Set([0, 3, 10, 13, 18, 22]);
 export function fixtureRole(seat: number): SeatRole {
   if (FIXTURE_MAFIA.has(seat)) return "Mafia";
   if (seat === 7) return "Detective";
-  if (seat === 19) return "Doctor";
+  if (seat === 19) return "Lawyer";
   return "Citizen";
 }
 
@@ -75,10 +75,10 @@ export const FIXTURE_CHATS: Record<Channel, ChatMessage[]> = {
     {
       kind: "chat",
       seat: 2,
-      text: "Look at the first vote. I chose Spare before anyone defended me.",
+      text: "Look at the first vote. I voted Acquit before anyone defended me.",
       time: "00:39",
     },
-    { kind: "event", text: "Member 05 lost their badge and moved to the gallery. Their public voice ends here." },
+    { kind: "event", text: "Member 05 was arrested and taken to the gallery. Their public voice ends here." },
     { kind: "chat", seat: 13, text: "We need a clear reason before removing someone else.", time: "01:03" },
   ],
   audience: [

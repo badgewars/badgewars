@@ -50,7 +50,7 @@ Use one base manga portrait per member initially. The same asset serves a small 
 - Accusation: selection is private until the deadline; confirmation occurs in the action bar.
 - Defense/verdict: automatically spotlight the accused; show their defense prominently.
 - Night: dim the common scene; show legal targets and the chosen target only in the acting player's private view.
-- Removal: remove the temporary game-badge marker and move the portrait into the gallery.
+- Arrest: animate the badge lifting off the portrait, then move it into the gallery. Arrested members appear in the gallery, visibly silent in Match Chat.
 - Finale: reveal roles on the portraits and show team results.
 
 Never color a real Mafia member differently before their permitted reveal. An expression, status icon, accessible label, notification, or animation must not disclose a secret. Distinguish the temporary game badge visually from collectible achievement art.
@@ -59,7 +59,7 @@ Never color a real Mafia member differently before their permitted reveal. An ex
 
 | Perspective | Match Chat | Audience Chat | Mafia Chat | Private role/results |
 | --- | --- | --- | --- | --- |
-| Active Citizen/Detective/Doctor | Read; write in allowed public phases | No access | No access | Own only |
+| Active Citizen/Detective/Lawyer | Read; write in allowed public phases | No access | No access | Own only |
 | Active Mafia | Same public access | No access | Read/write at night | Own and teammates as permitted |
 | Gallery | Read-only; no Match Chat writing | No access | No access (cut off at removal) | Gallery channel (removed members only) |
 | Audience | Read only | Read/write | No access | Own predictions only |
@@ -78,8 +78,8 @@ Use plain text, bounded length, output escaping, server-enforced rate limits, an
 | Discussion | Discuss; inspect histories | Gallery has no public voice | Inspect; make an open prediction |
 | Accusation | Select member, confirm accusation, or abstain | Gallery has no action | Lock eligible prediction |
 | Defense | Read defense | Accused gets defense composer | Read; lock prediction before verdict |
-| Verdict | Remove badge / Spare | Gallery has no ballot | Read-only; predictions locked |
-| Night | Review history | Attack / Protect / Investigate | Audience conversation; review history |
+| Verdict | Arrest / Acquit | Gallery has no ballot | Read-only; predictions locked |
+| Night | Review history | Frame / Alibi / Investigate | Audience conversation; review history |
 | Morning | Read public outcome | No new special action | Read outcome |
 | Finale | Results and earned awards | Postgame award ballot | Prediction results and earned awards |
 
@@ -109,7 +109,7 @@ Reusable animations: spotlight fade, subtle portrait emphasis, verdict stamp, ba
 
 The leaderboard has ranking and past-match views. A match page contains result, cast, recap, highlights, and replay. Use the same courtroom renderer with published events, a timeline, play/pause, phase jumps, and playback speed. Seeking rebuilds state deterministically; do not approximate it by replaying arbitrary UI clicks.
 
-Playback defaults to what the public knew at that point. Offer final roles as an explicitly labeled spoiler view after publication. Exclude private faction chat, Doctor/Detective targets, notebooks, and audience chat by default. Final roles and award eligibility can still be published without publishing every private action.
+Playback defaults to what the public knew at that point. Offer final roles as an explicitly labeled spoiler view after publication. Exclude private faction chat, Lawyer/Detective targets, notebooks, and audience chat by default. Final roles and award eligibility can still be published without publishing every private action.
 
 ## Acceptance
 

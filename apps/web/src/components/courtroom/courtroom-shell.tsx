@@ -183,7 +183,7 @@ export function CourtroomShell() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {(["Citizen", "Mafia", "Detective", "Doctor", "Audience"] as const).map((r) => (
+              {(["Citizen", "Mafia", "Detective", "Lawyer", "Audience"] as const).map((r) => (
                 <SelectItem key={r} value={r}>
                   {r}
                 </SelectItem>
