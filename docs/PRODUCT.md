@@ -1,6 +1,6 @@
 # Product direction
 
-Last captured: 2026-09-14. This document records the design discussion, not an implemented product.
+Updated 2026-09-14 after acceptance of the simplified courtroom design and the request for a build plan. This records product direction, not implemented multiplayer behavior.
 
 ## Goal and decision criteria
 
@@ -25,6 +25,11 @@ Accepted direction means the owner's current product direction. A proposal is a 
 | --- | --- | --- |
 | Game | Accepted direction | Mafia / social deduction, themed around tripleS fan roleplay |
 | Cast | Accepted direction | All 24 member identities appear in each match |
+| Setting and names | Accepted direction | Manga courtroom; Mafia versus Citizens; Detective and Doctor belong to the Citizen faction |
+| Trial | Accepted direction | One accused member; active players choose Remove badge or Spare |
+| Removal | Accepted direction | Move into the gallery; retain discussion but lose voting and night powers |
+| Layout | Accepted direction | Courtroom and persistent portraits in the center; chat right; gallery below; action bar at the bottom |
+| Chat | Accepted direction | Cast writes in Match Chat; audience reads it and writes in separate Audience Chat |
 | Format | Accepted direction | Synchronous live text; one room and one event per week at launch |
 | Schedule | Open | Friday or Saturday; exact time, time zone presentation, and duration unset |
 | Growth | Accepted direction | Add rooms if demonstrated demand warrants it; no always-open matchmaking requirement |
@@ -33,7 +38,7 @@ Accepted direction means the owner's current product direction. A proposal is a 
 | Price | Proposal | Start at $1; $2 remains an option. $10 was discussed, not selected |
 | Cast selection | Current preference | Random selection over auctions or first-come-first-served seats; eligibility and check-in mechanics unresolved |
 | Registration window | Current direction | Open during the week so attendees can prepare their account and payment before game night |
-| Gameplay authority | Proposal | Only cast players, including any defined jury role, decide eliminations; audience predictions do not change outcomes |
+| Gameplay authority | Accepted direction | Only active cast seats decide eliminations; gallery and audience have no trial vote |
 | Gambling | Accepted exclusion | No wagering, prize pool, or staking of ETH, COMO, or Objekts |
 | NPCs | Accepted direction | Programmed bots can cover vacancies or disconnects; minimum human count and bot policy unset |
 | Rewards | Accepted direction | Earned NFT badges, including editions shared by many recipients |
@@ -41,7 +46,7 @@ Accepted direction means the owner's current product direction. A proposal is a 
 | Chain | Working technical direction | Abstract, following the current Cosmo ecosystem; see dated research |
 | Onchain permanence | Goal | Durable assets and reusable rules; execution/privacy architecture unresolved |
 | Public history | Accepted direction | Leaderboard page also houses previous highlights, recaps, and match results |
-| Full replay | Option | Publish a transcript, a synchronized chat/action/art replay, or summaries; scope and publication policy unset |
+| Public replay | Accepted direction | Replay public chat and game actions; private Mafia chat stays excluded by default |
 | Name | Working name | Badge Wars / `badgewars`; no domain purchase or rights clearance established |
 | Kimchi account | Open | Initial account connection idea; provider, identity proof, and purpose undefined |
 
@@ -59,11 +64,11 @@ The payment buys the delivered live event, including audience participation. It 
 
 ### During the match
 
-Twenty-four member portraits anchor the cast. Human players converse in live text, make accusations, defend themselves, and use their permitted actions. A member persona does not disclose a secret role.
+Twenty-four portraits anchor the courtroom. Match Chat sits to the right and the gallery below the active cast. Human players discuss, accuse, defend, and use a phase-specific action bar. A member persona does not disclose a secret role. See [UI.md](UI.md) for the design.
 
 The audience has a dedicated experience: readable discussion and phase transitions, the current cast and history, sealed predictions, personal prediction progress without correctness feedback, and postgame recognition. A live chat alone must not be the entire value proposition for hundreds of paying attendees.
 
-The proposed boundary is strict: audience guesses do not eliminate cast members. Audience chat and live suspicion totals should also stay out of the cast's decision interface. Out-of-band collusion remains a separate problem; hiding a UI is not a complete defense.
+Audience guesses do not eliminate cast members. Spectators read Match Chat and write in Audience Chat. Cast accounts, including gallery members, cannot access Audience Chat during play. Live suspicion totals stay out of the cast's interface. Out-of-band collusion remains a separate problem; hiding a UI is not a complete defense.
 
 Bots cover defined absences using code and permitted information. The interface should identify automated seats clearly. The minimum viable human attendance and cancellation threshold need playtesting.
 
@@ -73,13 +78,13 @@ Reveal roles and results, resolve prediction accuracy, award eligible badges, an
 
 The **leaderboard page is also the archive**. It should let visitors find a past match, see its cast and outcome, and browse highlights and a recap. This supplies a public introduction to an otherwise paid live event.
 
-Possible archive depth, from smallest to largest:
+Build the archive in this order:
 
 1. Results, selected highlights, and a structured recap.
 2. A readable public-chat transcript with phase markers and actions.
 3. A replay with a timeline, pause/seek controls, chat, portraits, and the same visual actions used live.
 
-Store an event history that can support those views. Do not commit to producing every format at launch. Publishing private spy chat, deleted messages, or participant identifiers needs an explicit publication policy. Authentication and wallet secrets never belong in an archive.
+Store public event history from the first playable build. Replay is in the build plan; its polish follows the playable match. Exclude private Mafia chat, private targets, and personal notebooks from the public archive. Moderation removals and participant identifiers still need a publication policy. Authentication and wallet secrets never belong in an archive.
 
 ## Revenue and fairness
 
@@ -96,13 +101,15 @@ Useful early measures are registration-to-attendance conversion, returning paid 
 - Exact schedule, match duration, registration/check-in deadlines, and human attendance threshold.
 - One-person eligibility, account recovery, wallet onboarding, and the intended Kimchi connection.
 - Member preference allocation, standby replacements, disconnect policy, and proportionate no-show penalties. A ten-week ban was discussed, not adopted as a settled rule.
-- Final rules, role balance, jury powers, and whether all 24 seats remain fun to follow in text.
+- Role balance, timings, message limits, and whether all 24 seats remain fun to follow in text. The single-accused trial and non-voting gallery are selected.
 - Payment asset/rail, fees, failed-delivery refunds, and terms for paid random cast selection.
 - Hidden-state authority, automation, live access control, and the actual degree of onchain execution.
 - Badge transferability, definition of "inscribed," final art format, and permanent metadata policy.
 - Rights to names, portraits, show branding, and commercial fan use. The project has no established official license; an extra "s" is not evidence of legal clearance.
-- Archive publication, moderation, participant privacy, and replay scope.
+- Archive moderation, participant privacy, and final replay presentation.
 
 ## Earlier ideas, outside the current scope
 
-Collectible-card combat, a branching manga adventure, idol management, courtroom battles, asynchronous play, a solo campaign, role auctions, and paid wagering were explored. Do not quietly combine them into the launch specification. The reusable social-deduction event is the current direction.
+Collectible-card combat, a branching manga adventure, idol management, standalone courtroom puzzle battles, asynchronous play, a solo campaign, role auctions, and paid wagering were explored. Do not combine them into the launch specification. The courtroom is now the presentation for the social-deduction event.
+
+The initial two-nominee trial, Agents/Spies/Guardian terminology, and one-use jury ballot are superseded. Use [GAMEPLAY.md](GAMEPLAY.md), [UI.md](UI.md), and [BUILD_PLAN.md](BUILD_PLAN.md) for the current design.

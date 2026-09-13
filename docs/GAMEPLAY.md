@@ -1,128 +1,114 @@
-# Gameplay working draft
+# Courtroom Mafia rules
 
-**Status: proposed rules, not approved balance or implemented behavior.** The accepted foundation is a weekly synchronous live-text event with all 24 member identities. This draft makes the discussed mechanics concrete enough to prototype and test.
+Updated 2026-09-14. The owner accepted the courtroom, role names, single-accused trial, two-button verdict, and non-voting gallery. Numbers below are prototype defaults that require playtesting. No multiplayer engine exists yet.
 
-## Identities and roles
+## Terms and roles
 
-Member identity, account identity, and secret role are separate. A player embodies a member; their member portrait does not imply a faction or special ability. Identity allocation and secret-role assignment happen after the eligible cast is locked.
+| Term | Meaning |
+| --- | --- |
+| Member | The tripleS identity a seat embodies, independent of secret role |
+| Citizen | Faction trying to remove all Mafia |
+| Detective | Citizen faction; investigates one other active member at night |
+| Doctor | Citizen faction; protects one active member at night |
+| Mafia | Hidden faction; collectively attacks one active non-Mafia member at night |
+| Active cast | Seats with a game badge; may accuse and vote |
+| Gallery | Removed cast; may discuss but cannot accuse, vote, or use night powers |
+| Audience | Paid attendees outside the cast; read the match and make predictions |
+| Game badge | A seat's active status in this match, separate from NFT achievements |
 
-Proposed 24-seat distribution:
+Start with 16 ordinary Citizens, one Detective, one Doctor, and six Mafia: 18 Citizen-faction seats versus six Mafia. All 24 member identities appear. Special roles do not change the public portrait or label.
 
-| Role | Seats | Information and action |
+## Before play
+
+Open paid registration during the week. Offer the cast draw as an option alongside audience access. Record three preferred members. Use the random cast order to allocate each selected attendee's highest available preference, then randomly allocate remaining members. Preferences do not affect secret roles.
+
+Prototype schedule: check-in opens 30 minutes before play; freezes ten minutes before play; selected attendees get one minute to accept. Use one frozen eligible list and ordered standby list. Finish seating before distributing secrets. Do not introduce a new human into a seat after secrets have been distributed.
+
+Eligibility, minimum attendance, bot ceiling, and cancellation terms must be settled before paid operation. Account uniqueness is not human uniqueness. These questions do not block local playtests.
+
+Start with discussion. Nobody loses a badge before the opening conversation.
+
+## Round sequence
+
+`discussion -> accusation -> defense -> verdict -> night -> morning`
+
+| Phase | Prototype duration | Main action |
 | --- | ---: | --- |
-| Agent | 16 | Knows own allegiance; discusses, nominates, and votes |
-| Investigator | 1 | Agent faction; privately checks one other active seat each night |
-| Guardian | 1 | Agent faction; privately protects one active seat each night |
-| Spy | 6 | Knows fellow spies; participates in private night discussion and attack selection |
+| Discussion | 180 seconds | Read/send Match Chat and inspect public histories |
+| Accusation | 30 seconds | Accuse one other active member or abstain |
+| Defense | 30 seconds | The sole accused member writes a defense |
+| Verdict | 30 seconds | Active seats choose Remove badge or Spare |
+| Night | 45 seconds | Mafia attack; Doctor protects; Detective investigates |
+| Morning | 15 seconds | Announce public effects and check the result |
 
-That is 18 Agent-faction seats and six Spies. Counts, investigation strength, unrevealed eliminations, and jury votes interact; this is not a claim of balance.
+A full round is 5.5 minutes. Twelve rounds plus opening and closing are roughly 75 minutes; this is a pacing hypothesis. Skipped trials and early victories shorten matches.
 
-## Proposed lifecycle
+Cast discussion is open during discussion and accusation. During defense only the accused may write. Cast writing pauses during verdict, night, and morning. Audience Chat remains available to audience accounts. Everyone retains access to their permitted history.
 
-`scheduled -> registration -> check-in -> draw -> seating -> active rounds -> final reveal -> awards -> archived`
+Start with three messages of up to 240 characters per cast member per discussion/accusation period, including gallery members. Allow one defense of up to 500 characters. Measure reading load before adopting these limits. Accepted text cannot be edited after the fact. Quotes do not bypass limits.
 
-A cancelled event is a separate terminal outcome. Every state needs explicit entry conditions, deadlines, permitted actions, and recovery behavior. Exact pregame timings remain open; a draw roughly ten minutes before play was discussed.
+## Accusation and verdict
 
-1. Register: record one event entitlement after successful payment.
-2. Check in: eligible attendees indicate availability for the cast.
-3. Freeze: commit the eligible list before requesting public selection randomness.
-4. Draw: derive the cast and an ordered standby queue; do not reroll for a preferred result.
-5. Seat: confirm attendance, allocate member identities, and fill permitted vacancies.
-6. Assign secrets: distribute roles through a privacy-preserving mechanism that is still to be chosen.
-7. Play: start with public discussion so nobody is removed before taking part.
-8. Finish: reveal roles, resolve objective results, close any award voting, and issue badges once.
+Each active seat can accuse one other active seat. The latest valid choice received before the deadline counts. Abstention or a missing choice contributes nothing. Keep choices hidden until the deadline, then publish them together.
 
-Do not let the public seat-selection seed also disclose secret roles. Cast selection fairness and one-person eligibility are separate requirements.
+The highest accusation count selects one accused member. Break ties using a published circular member order, starting at a different position each round. Skip defense and verdict if nobody is accused.
 
-## Atomic actions
+Every active seat, including the accused, may vote Remove badge or Spare. Votes can change until the deadline; the latest valid choice counts. Missing ballots abstain. Publish ballots together after locking them.
 
-These are conceptual commands, not implemented API names. Every submission must identify the event, actor, applicable phase, and unique request. Repeated delivery must not repeat the effect.
+Remove the accused only when Remove votes exceed Spare votes. Ties, including zero-zero, spare them. This is a majority of non-abstaining ballots, not all active seats. Move the removed member to the gallery without revealing their role. Check victory immediately; skip night if the match has ended.
 
-| Action | Who | Effect / deadline |
+## Night
+
+Use the same snapshot of active seats at night opening. Accept changes until the deadline and resolve together without dependence on arrival order.
+
+- Each active Mafia seat chooses one active non-Mafia target. Unique plurality produces one attack; tied highest votes or no votes produce none. Active Mafia coordinate in private faction chat during night.
+- The Doctor selects an active seat, including themselves. They cannot protect the same seat on consecutive nights. A missed night clears that previous-night restriction. Protection blocks an attack on the selected seat. Do not send success confirmation.
+- The Detective selects another active seat. Privately return only Mafia or Citizen after resolution. Honor a valid investigation even if the Detective loses their badge that night.
+- Missing actions do nothing unless a permitted bot has already supplied a legal choice.
+- Announce who lost their badge or that nobody did. Do not reveal failed-attack causes, private targets, or roles.
+
+Gallery members receive no new powers or faction-chat messages. Removed Mafia still remember teammates; the rules cannot erase knowledge. A removed Detective retains results already received.
+
+## Victory and limit
+
+Check after each resolved badge loss and each completed round, in this order:
+
+1. Citizens win when no active Mafia remain.
+2. Otherwise Mafia win when active Mafia equal or outnumber active Citizen-faction seats.
+3. Prototype hard limit: Mafia win if any remain after twelve completed rounds.
+
+Gallery members do not count toward parity. They remain on their original team for achievement eligibility. Cancellation/invalidity are separate terminal states and do not silently award victory.
+
+## Atomic commands
+
+A command carries match ID, phase ID, authenticated actor, unique command ID, and payload. The authority assigns receipt time and ordering. Duplicate delivery returns the original acknowledgement rather than repeating the effect.
+
+| Command | Actor | Effect |
 | --- | --- | --- |
-| Register | Attendee | Creates an entitlement once payment is confirmed; no guaranteed cast seat |
-| Check in | Eligible ticket holder | Enters the available-player set before it freezes |
-| Accept seat | Selected attendee or next standby | Claims only the assigned seat within the seating window |
-| Send public message | Permitted cast participant | Adds a moderated, ordered message during permitted phases |
-| Nominate | Active cast seat | Selects one other active seat or abstains before nomination lock |
-| Defend | Trial nominee | Uses the nominee's allotted text window |
-| Vote | Active seat; eligible jury seat | Chooses nominee A, nominee B, or spare both before ballot lock |
-| Spy message | Spy seat | Sends a private faction message during the permitted night phase |
-| Choose attack | Active Spy | Selects a legal active non-Spy target before night lock |
-| Protect | Active Guardian | Selects a legal target before night lock |
-| Investigate | Active Investigator | Selects another active seat before night lock |
-| Predict | Eligible audience attendee | Locks one legal suspect for an open prediction window |
-| Cast award vote | Eligible participant | Votes once per defined postgame award; no self-vote where specified |
-| Reconnect | Seat owner | Resumes permitted control without undoing actions already resolved |
-| Advance phase | Resolver | Resolves a closed phase exactly once; verifies time and state |
-| Finalize awards | Resolver | Derives and records entitlements once the relevant facts are public |
+| Register | Attendee | Record entitlement after confirmed payment |
+| Check in | Eligible ticket holder | Join available-player set before freezing |
+| Accept seat | Selected account / next standby | Confirm the allocated seat before seating closes |
+| Send message | Channel-authorized account | Append text within phase/rate limits |
+| Accuse | Active cast | Set one active non-self target or abstention |
+| Defend | Accused member | Append defense within its window |
+| Vote | Active cast | Set Remove or Spare |
+| Attack | Active Mafia | Set legal night target |
+| Protect | Active Doctor | Set legal protection target |
+| Investigate | Active Detective | Set legal investigation target |
+| Predict | Eligible audience | Lock one valid prediction with no revision |
+| Award vote | Eligible participant | Vote in the specified postgame award |
+| Resume | Seat owner | Resume current state without undoing resolved actions |
+| Advance | Rules resolver | Close a phase once its authoritative deadline expires |
+| Settle awards | Awards resolver | Record each final entitlement once |
 
-Whether ordinary action choices can be revised before their deadline is open. Spectator predictions are deliberately final once submitted in the proposed design. Missing optional choices resolve as abstentions unless a permitted bot has supplied the action.
+Opening portraits, filtering history, drafting text, and keeping private notes are local actions. They do not accuse someone or broadcast a selection.
 
-## A proposed round
+## Audience and recovery
 
-| Phase | Draft duration | Rule |
-| --- | ---: | --- |
-| Discussion | 3 minutes | Public live text and review of previous actions |
-| Nomination | 30 seconds | Active seats nominate privately; reveal nominations at the deadline |
-| Defense | 1 minute | Two nominees get 30 seconds each |
-| Ballot | 30 seconds | Hidden ballots; reveal choices and voter identities after locking |
-| Night | 45 seconds | Spies, Guardian, and Investigator submit simultaneously |
-| Resolution | About 15 seconds | Announce public effects, update active cast, check end conditions |
+Audience accounts read Match Chat and write in Audience Chat. Cast accounts, including the gallery, cannot access Audience Chat during play. Predictions never control verdicts. See [BADGES.md](BADGES.md).
 
-The draft is about six minutes per full round. A twelve-round limit would put the match around 80 minutes including opening and ending. Short trials or an early win shorten it; pacing needs human playtests.
+Programmed bots can cover vacancies and missed active-seat actions. Label automated control. Bots receive only permitted seat information and require no LLM calls. A human may resume before a phase lock; completed actions cannot be undone. Test the takeover grace period and trigger rather than treating a backgrounded browser tab as abandonment.
 
-### Trial resolution
+Individual disconnections do not pause the clock. A platform-wide outage requires explicit recovery or cancellation; do not fast-forward through multiple unplayable phases. Restore acknowledged actions from durable state. Do not penalize a no-show caused by a verified service failure.
 
-Take the top two nominated active seats. Break nomination ties using a rotating, publicly defined member order. Skip the trial when nobody is nominated. The one-nominee case and the exact rotating order must be specified before implementing this rule.
-
-The ballot has three choices: remove A, remove B, or spare both. Remove a nominee only when that option has a unique highest vote count. Ties spare the nominees. An abstention contributes no vote. This is a plurality proposal, not a majority requirement.
-
-Check win conditions after a day removal before opening another night. Do not reveal a removed seat's role during ordinary play in this draft.
-
-### Simultaneous night resolution
-
-- Active Spies select an active non-Spy target. A unique plurality produces one attack; a tie or no votes produces none.
-- The Guardian may protect any active seat, including themselves, but not the same seat on consecutive nights. Protection blocks that night's attack on that seat. Do not send a private success confirmation.
-- The Investigator checks one other active seat and receives only its faction, Agent or Spy. Resolve a valid submitted investigation even if the Investigator is removed that night.
-- Resolve from the same snapshot of eligible actors at night opening. Do not make results depend on transaction arrival order within the valid window.
-- Announce who lost their badge, or that no badge was lost. Do not disclose the cause of a failed attack or a hidden role.
-
-## Removal and jury participation
-
-Proposed rule: losing a badge moves a player to the jury. They retain their member identity, allegiance, and permitted public discussion, but lose nominations and night powers. They retain **one final trial vote for the rest of the match**. Once used, it is spent.
-
-Jury members receive no new privileged information beyond their existing knowledge. Spies already know their teammates and cannot be made to forget them; further private-chat access for removed Spies must be defined. Leaving after active duty ends should not automatically count as abandoning an active seat.
-
-This rule is intended to keep removed humans involved, but its balance and chat load need testing. Jury votes do not count as active bodies in the parity win condition.
-
-## Win conditions
-
-- Agents win when no active Spies remain.
-- Spies win when at least one active Spy remains and active Spies equal or outnumber active Agent-faction seats.
-- Proposed hard limit: if Spies remain after twelve complete rounds, Spies win.
-
-Check the Agent win before Spy parity, including any zero-active-seat edge case. Define terminal ordering and cancellation separately; an incomplete match must not silently count as a victory.
-
-## Audience play
-
-The proposed prediction game and its awards live in [BADGES.md](BADGES.md). Audience votes do not remove players. Audience performance voting happens after the competitive result is fixed.
-
-Do not show a spectator a role, secret action, or guess correctness before the final reveal. Restricting correctness feedback also applies to NFT issuance, APIs, and metadata.
-
-## Absences, bots, and abuse
-
-Programmed NPCs may supply legal actions when seats are vacant or unavailable. They operate from that seat's permitted observations, never an omniscient role table. A simple fallback should be abstention rather than a phase that never finishes. Their difficulty and text behavior are not designed yet.
-
-A short reconnect grace period, such as two minutes, is a proposal. A returning player resumes from current state and cannot undo a bot's completed action. The ownership and badge eligibility of a seat partly controlled by a bot need explicit rules.
-
-Minimum human attendance, maximum starting bots, replacement cutoffs, and no-show penalties remain open. Twenty humans plus up to four starting bots was one possible threshold, not an accepted constraint. A fee alone does not prevent alternate accounts, collusion, harassment, or spectator-to-player leaks.
-
-## What the prototype must establish
-
-- Twenty-four people can follow the text without drowning out discussion.
-- All phases terminate under missed inputs, disconnects, and duplicate requests.
-- Spies and Agents both have plausible paths to victory under the jury and secrecy rules.
-- Players cannot read another role or infer it from award traffic.
-- Audience predictions reward deduction without becoming a trivial guess-everyone strategy.
-- Replaying recorded actions produces the same public result and award eligibility.
+The first full playtest must establish readable discussion, meaningful audience involvement, plausible wins for both factions, and recovery without secret leakage.

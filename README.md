@@ -4,13 +4,15 @@ A weekly, live-text social deduction game for tripleS fans. Twenty-four member i
 
 The current concept combines paid live participation, random cast selection, NFT badge editions, and a public leaderboard with past results, highlights, and recaps. The rules should support repeat play without a new authored season every week.
 
-**Status: design and repository setup.** No playable application, smart contracts, artwork collection, or deployment exists in this repository yet. Specific rules and technical choices remain proposals where marked.
+**Status: design and build planning.** The [interactive courtroom study](design/courtroom.html) demonstrates layout and phase controls using local fixtures. It is not a playable multiplayer game. No production application, smart contracts, final artwork collection, or deployment exists yet.
 
 ## Project documents
 
 | Document | Purpose |
 | --- | --- |
 | [Product](docs/PRODUCT.md) | Goals, current decisions, experience, and open questions |
+| [UI design](docs/UI.md) | Courtroom, cards, chat permissions, mobile behavior, and art scope |
+| [Build plan](docs/BUILD_PLAN.md) | Implementation order, dependencies, deliverables, and acceptance checks |
 | [Gameplay](docs/GAMEPLAY.md) | Proposed match flow, atomic actions, roles, and recovery rules |
 | [Badges](docs/BADGES.md) | Achievement catalogue, prediction rules, and NFT editions |
 | [Architecture](docs/ARCHITECTURE.md) | State, privacy, replay, chain boundaries, and implementation sequence |
@@ -19,6 +21,8 @@ The current concept combines paid live participation, random cast selection, NFT
 
 ## Development
 
-There are no install, development, build, or test commands yet. Add reproducible commands here when the first implementation lands. Documentation changes can be checked with `git diff --check` and a review of relative links.
+The layout study is self-contained HTML with no dependencies or network calls. Open `design/courtroom.html`, or serve it with `python3 -m http.server 8080 --bind 127.0.0.1 --directory design`. This command does not open a browser. Its phase/perspective selectors are reviewer controls, not product features.
+
+There are no application install, build, or test commands yet. Add reproducible commands when the first implementation lands. Documentation changes can be checked with `git diff --check` and a review of relative links.
 
 Badge Wars is a working project name. No official tripleS, MODHAUS, or Cosmo partnership or asset license is established by this repository.

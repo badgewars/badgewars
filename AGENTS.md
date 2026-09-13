@@ -6,7 +6,7 @@ This is the canonical project guidance for Codex, Claude Code, and other agents.
 
 Read [README.md](README.md) and [docs/PRODUCT.md](docs/PRODUCT.md) before working. Read the relevant gameplay, badge, or architecture document for the task. Product decisions belong in those documents, not only in a conversation.
 
-The repository currently contains design documentation only. There is no application, contract, package manager, build command, test suite, or deployment yet. Do not invent commands or report design proposals as implemented behavior.
+The repository contains design documentation and a standalone layout study in `design/courtroom.html`. The study uses local fixtures; it is not a game engine, permission system, or multiplayer application. No production contracts, application build command, or deployment exist yet. Do not report proposals as implemented behavior.
 
 ## Reasoning and scope
 
@@ -20,7 +20,9 @@ The repository currently contains design documentation only. There is no applica
 ## Product boundaries
 
 - The launch concept is one weekly, synchronous, live-text Mafia event with all 24 tripleS member identities represented. See PRODUCT for the status of specific choices.
-- Live access is paid for both cast and audience. The leaderboard also houses post-event highlights and recaps; full transcripts and action replay remain options.
+- Use Mafia, Citizens, Detective, and Doctor consistently. The current design has one accused member, Remove/Spare verdicts, and a non-voting gallery. The earlier two-nominee trial and jury ballot are superseded.
+- Keep the courtroom in the center and Match Chat on the right. Spectators also get Audience Chat; cast accounts cannot access it during play. Portraits stay present, with large spotlights for trials and selected members.
+- Live access is paid for both cast and audience. The leaderboard houses post-event highlights, recaps, and public chat/action replay. Private faction chat stays excluded by default.
 - There is no wagering, prize pool, or staking of ETH, COMO, or Objekts. A ticket buys event participation; a cast seat is not guaranteed.
 - Audience deduction must be enjoyable independently of being selected for the cast. Paid entries and blockchain randomness do not establish one-person eligibility.
 - Build reusable rules. Do not make weekly play depend on writing new stories, challenges, or expensive model calls.
@@ -28,7 +30,7 @@ The repository currently contains design documentation only. There is no applica
 
 ## Engineering invariants
 
-- Treat hidden roles, investigations, spy chat, and unresolved predictions as secrets. Solidity `private` storage is publicly observable. A public random seed must not expose role assignments.
+- Treat hidden roles, investigations, Mafia chat, and unresolved predictions as secrets. Solidity `private` storage is publicly observable. A public random seed must not expose role assignments.
 - Do not leak secret outcomes through badge events, metadata, API responses, notifications, logs, or spectator feedback. Settle secret-dependent awards after the final reveal.
 - Validate actions against the authoritative match, phase, deadline, actor, and eligibility. Client clocks and interfaces are not authority.
 - Make payment recording, match resolution, claims, and badge issuance idempotent. Timeouts and fallback behavior must allow a match to finish when a player disconnects.

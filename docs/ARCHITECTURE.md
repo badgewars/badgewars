@@ -1,6 +1,6 @@
 # Architecture notes
 
-**Status: constraints and implementation recommendations.** No stack, privacy protocol, wallet integration, contracts, or hosting has been implemented.
+**Status: constraints and implementation recommendations.** The courtroom layout study is implemented with fixtures. Production stack choices are recommendations in [BUILD_PLAN.md](BUILD_PLAN.md); no privacy protocol, wallet integration, contracts, or hosting has been implemented.
 
 ## Separate the responsibilities
 
@@ -70,11 +70,13 @@ Routine recaps should be possible from structured facts and templates. An LLM ca
 
 ## Suggested implementation sequence
 
-1. Build a rules-only local simulator with no payments or live-chain transactions. Exercise normal games, timeouts, jury rules, and terminal edge cases.
+1. Build a rules-only local simulator with no payments or live-chain transactions. Exercise normal games, timeouts, gallery restrictions, and terminal edge cases.
 2. Prototype the live-text cast and audience interfaces around that engine. Test readability with a full 24-seat match and useful audience predictions.
 3. Decide the identity, privacy, transport, and payment boundaries with measured gameplay needs in hand.
-4. Implement event history and the leaderboard/results archive. Add transcript or visual replay only to the chosen scope.
+4. Implement event history and the leaderboard/results archive. Reuse the courtroom renderer for the selected public chat/action replay.
 5. Implement and benchmark badge editions and ticket/draw components on a test network, including duplicate delivery and secret-leak checks.
 6. Run the full event lifecycle, including check-in, standby selection, bot takeover, cancellation, final reveal, and award retries, before a paid launch.
 
 This is a proposed order of work, not authorization to provision services or deploy contracts during documentation setup. Document real run/build/test commands when the application exists. The owner's default host is Render; it is not currently provisioned.
+
+The detailed current sequence is [BUILD_PLAN.md](BUILD_PLAN.md). The playtest server is a development recommendation, not approval to replace the original onchain-permanence goal with permanent operator trust.
