@@ -37,4 +37,8 @@ Build prerequisite on this machine: run builds with an **arm64 node** (`~/.nvm/v
 
 Documentation changes can be checked with `git diff --check` and a review of relative links.
 
+## Deploy
+
+Not hosted yet. This project deploys only from a **buxor-owned** hosting account with buxor-only credentials. Once a buxor Vercel (or Render) token exists in `~/.tokens`, `apps/web` deploys with a direct upload or service create; no GitHub app or external collaborator is involved.
+
 Badge Wars is a working project name. No official tripleS, MODHAUS, or Cosmo partnership or asset license is established by this repository.
