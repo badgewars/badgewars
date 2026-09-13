@@ -57,7 +57,7 @@ export function fixtureRole(seat: number): SeatRole {
 }
 
 export type ChatMessage =
-  | { kind: "event"; text: string }
+  | { kind: "event"; text: string; caseFile?: string }
   | { kind: "chat"; seat: number; text: string; time: string; gallery?: boolean };
 
 export type Channel = "match" | "audience" | "mafia";
@@ -79,6 +79,8 @@ export const FIXTURE_CHATS: Record<Channel, ChatMessage[]> = {
       time: "00:39",
     },
     { kind: "event", text: "Member 05 was arrested and taken to the gallery. Their public voice ends here." },
+    { kind: "event", text: "Member 13 has made an accusation in every round so far. Every member they accused has been acquitted.", caseFile: "CASE FILE 03" },
+    { kind: "event", text: "Three active members sent zero public messages during round 3.", caseFile: "CASE FILE 04" },
     { kind: "chat", seat: 13, text: "We need a clear reason before removing someone else.", time: "01:03" },
   ],
   audience: [

@@ -69,7 +69,7 @@ Enforce this before serialization/subscription on the authority. Removing a tab 
 
 Each message displays member name, a stable player handle, time/phase, and a quote action. Gallery messages have a text label as well as muted styling. Preserve the scroll position while reading history and show a new-message count. Do not auto-scroll someone away from evidence they are reading.
 
-Use plain text, bounded length, output escaping, server-enforced rate limits, and report/mute controls. Moderation state is an overlay on history; public replay follows the moderation policy instead of resurfacing removed material. No player-to-player direct messaging feature is needed.
+Morning case files (proposal) render as distinct monospace records with a violet rule — official record styling, not conversation. Use plain text, bounded length, output escaping, server-enforced rate limits, and report/mute controls. Moderation state is an overlay on history; public replay follows the moderation policy instead of resurfacing removed material. No player-to-player direct messaging feature is needed.
 
 ## Action bar states
 

@@ -39,7 +39,7 @@ Start with discussion. Nobody loses a badge before the opening conversation.
 | Defense | 30 seconds | The sole accused member writes a defense |
 | Verdict | 30 seconds | Active seats choose Arrest or Acquit |
 | Night | 45 seconds | Mafia frames; Lawyer secures an alibi; Detective investigates |
-| Morning | 15 seconds | Announce public effects and check the result |
+| Morning | 15 seconds | Announce public effects, drop the case file, check the result |
 
 A full round is 5.5 minutes. Twelve rounds plus opening and closing are roughly 75 minutes; this is a pacing hypothesis. Skipped trials and early victories shorten matches.
 
@@ -72,6 +72,19 @@ Use the same snapshot of active seats at night opening. Accept changes until the
 - Announce who was arrested or that no one was. Do not reveal why a frame failed, private targets, or roles.
 
 Gallery members receive no new powers and no faction-chat messages. Removed Mafia still remember teammates; the rules cannot erase knowledge. A removed Detective retains results already received. Gallery chatter cannot change the game: it reaches only other removed members, stays out of the archive, and carries no vote, action, or public voice.
+
+## Morning case files (proposal, accepted for demo 2026-09-14)
+
+At every morning, after the arrest announcement, the authority publishes one or two **case-file lines** — a standing evidence beat that gives the table something concrete to argue about. Rules of the mechanism:
+
+- Derived **only from the public event log** after the lock: chat volume/silence, published accusation records, published ballots, and public announcements. A case file never references secret roles, faction membership, night targets, alibis, failed-frame causes, or anything the public record does not already contain. Patterns over public actions are the content.
+- The same code generator runs every week. No hand-written lines, no model calls, no weekly content work.
+- Catalog (seeded): members sending zero public messages in the round; accusation streaks ("accused in every round so far", "accused the same seat twice running"); acquittal records ("every member this seat accused has been acquitted"); ballot blocs ("the same five seats voted together on every ballot"); volume swings ("this seat's public messages dropped 70%"); first-mover patterns ("the first accusation each round came from the same seat").
+- Pick the highest-drama lines with a coded score; ties break by seeded RNG. Never more than two per morning.
+- The file drops once, at morning, and stays pinned through discussion and accusation. No drip during phases.
+- The audience sees the same file at the same time. Their predictions and the cast's discussion read the same evidence.
+- Case files persist into the match archive and feed the recap.
+- Anti-leak check belongs in the engine tests: a case-file generator run over a match's public log must produce identical output whether or not private state exists.
 
 ## Victory and limit
 

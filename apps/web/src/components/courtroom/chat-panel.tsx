@@ -76,14 +76,26 @@ export function ChatPanel({ phase }: { phase: Phase }) {
         <AnimatePresence initial={false}>
           {messages.map((m, i) =>
             m.kind === "event" ? (
-              <motion.p
-                key={`${channel}-event-${i}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="mb-5 border-l-2 border-ring bg-muted/60 px-3 py-2 text-[11px] text-muted-foreground"
-              >
-                {m.text}
-              </motion.p>
+              m.caseFile ? (
+                <motion.p
+                  key={`${channel}-case-${i}`}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-5 rounded-r-md border-l-2 border-ring bg-ring/10 px-3 py-2 font-mono text-[11px] leading-relaxed text-foreground"
+                >
+                  <span className="mb-0.5 block font-semibold tracking-widest text-ring">{m.caseFile}</span>
+                  {m.text}
+                </motion.p>
+              ) : (
+                <motion.p
+                  key={`${channel}-event-${i}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="mb-5 border-l-2 border-ring bg-muted/60 px-3 py-2 text-[11px] text-muted-foreground"
+                >
+                  {m.text}
+                </motion.p>
+              )
             ) : (
               <motion.article
                 key={`${channel}-${i}-${m.time}`}
