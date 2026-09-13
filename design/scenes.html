@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badge Wars — scene card study</title>
+<style>
+:root{color-scheme:dark;--bg:#0c0c0e;--card:#141417;--line:#26262b;--paper:#f2ead9;--ink:#26251f;--violet:#8b5cf6;--pink:#f0abfc;--red:#e5484d;--brass:#ad873e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#e4e4e7;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:32px}
+h1{font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#a1a1aa;margin:0 0 6px}
+p.note{color:#71717a;font-size:12px;margin:0 0 28px;max-width:720px}
+.row{display:flex;gap:22px;flex-wrap:wrap}
+.card{width:300px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;flex-shrink:0;box-shadow:0 12px 40px #0006}
+.art{position:relative;height:330px;overflow:hidden}
+.tag{position:absolute;top:10px;left:10px;z-index:3;font:600 10px/1 "SFMono-Regular",ui-monospace,monospace;letter-spacing:.14em;padding:6px 9px;border-radius:5px;background:#0009;border:1px solid #ffffff26;color:#fff}
+.tag.red{background:var(--red);border-color:var(--red)}
+.cap{padding:12px 14px 14px;font-size:12.5px;line-height:1.5;color:#d4d4d8;border-top:1px solid var(--line)}
+.cap small{display:block;margin-top:5px;font-size:10.5px;color:#71717a}
+/* schematic art placeholders — final art is manga */
+.chip{width:64px;height:76px;border-radius:9px 9px 4px 4px;display:grid;place-items:center;font-family:Georgia,serif;font-size:26px;position:relative;border:1px solid #00000022}
+.chip b{font-weight:700}
+.badge-dot{position:absolute;right:-6px;bottom:-6px;width:15px;height:15px;border-radius:50%;background:var(--brass);border:2px solid #00000055}
+.badge-dot.gone{display:none}
+.strike{text-decoration:line-through;opacity:.75}
+/* scene 1: pair up — warm paper dorm */
+.s-pair .art{background:linear-gradient(160deg,#e9ddc4,#f4ecd9 55%,#e2d3b4)}
+.s-pair .window{position:absolute;right:18px;top:22px;width:74px;height:88px;background:linear-gradient(170deg,#bcd3d8,#8fb0ba);border-radius:6px;border:3px solid #b09877;box-shadow:0 4px 14px #0002}
+.s-pair .chips{position:absolute;left:22px;bottom:66px;display:flex;gap:10px;align-items:flex-end}
+.s-pair .chip:nth-child(1){transform:rotate(-3deg)}
+.s-pair .chip:nth-child(2){transform:rotate(2deg) translateY(-6px)}
+.chip.c1{background:linear-gradient(160deg,#c8ccd4,#eceef2);color:#3c4356}
+.chip.c2{background:linear-gradient(160deg,#d9c9cf,#f2e6ea);color:#5c3c4a}
+.s-pair .coffee{position:absolute;right:36px;bottom:40px;width:30px;height:26px;background:#fff;border:2px solid #6b5138;border-radius:4px 4px 10px 10px}
+.s-pair .coffee:before{content:"";position:absolute;top:-9px;left:6px;width:14px;height:8px;border:2px solid #6b5138;border-top:none;border-radius:0 0 12px 12px}
+.s-pair .hearts{position:absolute;left:28px;top:16px;color:#c26b8a;font-size:15px;letter-spacing:3px}
+/* scene 2: records room — cool dark */
+.s-records .art{background:linear-gradient(165deg,#22242b,#171a1f 60%,#101318)}
+.s-records .shelf{position:absolute;left:0;right:0;top:0;height:120px;display:flex;flex-direction:column;justify-content:space-around;padding:0 22px;opacity:.9}
+.s-records .shelf span{height:8px;background:#3a3e48;border-radius:2px}
+.s-records .chip{position:absolute;left:50%;transform:translateX(-50%);bottom:78px;background:linear-gradient(160deg,#3c4a5c,#26303e);color:#cfe0f4}
+.s-records .file{position:absolute;right:34px;bottom:36px;width:34px;height:42px;background:#e8dcae;border-radius:3px;border:2px solid #9a8f5e;transform:rotate(6deg)}
+.s-records .file:after{content:"";position:absolute;left:6px;top:8px;width:18px;height:3px;background:#9a8f5e;box-shadow:0 7px 0 #9a8f5e,0 14px 0 #9a8f5e}
+/* scene 3: statement */
+.s-statement .art{background:linear-gradient(160deg,#262220,#1b1917)}
+.s-statement .chip{position:absolute;left:24px;bottom:40px;width:82px;height:98px;background:linear-gradient(160deg,#4a4f5a,#767c8a);color:#e8eaf0;font-size:32px}
+.bubble{position:absolute;left:30px;top:26px;right:26px;background:var(--paper);color:var(--ink);border-radius:12px;padding:14px 16px;font-size:13px;line-height:1.5;box-shadow:4px 4px 0 #0004}
+.bubble:after{content:"";position:absolute;bottom:-12px;left:56px;border:7px solid transparent;border-top-color:var(--paper);border-left-color:var(--paper)}
+.bubble i{font-style:italic}
+/* scene 4: arrest — night court */
+.s-arrest .art{background:radial-gradient(120px 90px at 50% 26%,#3d3a55,#17161f 70%,#0d0c12)}
+.s-arrest .beam{position:absolute;left:50%;top:0;transform:translateX(-50%);width:150px;height:220px;background:linear-gradient(#ffffff14,#ffffff00);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%)}
+.s-arrest .chip{position:absolute;left:50%;top:64px;transform:translateX(-50%) rotate(-2deg);background:linear-gradient(160deg,#4b4358,#241f2e);color:#d9c9f2}
+.s-arrest .stamp{position:absolute;left:50%;top:150px;transform:translateX(-50%) rotate(-14deg);font:800 17px/1 "SFMono-Regular",ui-monospace,monospace;letter-spacing:.2em;color:var(--red);border:3px solid var(--red);padding:7px 12px;border-radius:6px;background:#0008}
+.s-arrest .cuffs{position:absolute;right:38px;bottom:34px;width:22px;height:22px;border:3px solid #8d8d95;border-radius:50%;box-shadow:-27px 8px 0 -1px #8d8d95}
+@media (max-width:700px){.row{justify-content:center}}
+</style>
+</head>
+<body>
+<h1>Badge Wars — scene card study</h1>
+<p class="note">Four of the five day-scene types, rendered as photocard-format composites: backdrop + portrait chips + prop + caption. Schematic placeholders — final art is manga. Cards are content on the dark chrome; this is the same content-as-color rule as apollo.</p>
+<div class="row">
+  <div class="card s-pair"><div class="art"><span class="tag">DAY · PAIR UP</span><div class="window"></div><div class="hearts">♥ ♥</div><div class="chips"><span class="chip c1"><b>07</b><span class="badge-dot"></span></span><span class="chip c2"><b>13</b><span class="badge-dot"></span></span></div><div class="coffee"></div></div><div class="cap">Members 07 and 13 spent the afternoon together in the lounge.<small>Public fact — pairings are evidence. The case file remembers.</small></div></div>
+  <div class="card s-records"><div class="art"><span class="tag">DAY · RECORDS ROOM</span><div class="shelf"><span></span><span></span><span></span></div><span class="chip"><b>09</b><span class="badge-dot"></span></span><span class="file"></span></div><div class="cap">Member 09 visited the records room.<small>Privately, 09 received a highlight of the public record. Visitors this match: 3 — two were arrested.</small></div></div>
+  <div class="card s-statement"><div class="art"><span class="tag">DAY · STATEMENT</span><div class="bubble"><i>“I didn’t stay quiet to hide. I stayed quiet to listen.”</i></div><span class="chip"><b>20</b><span class="badge-dot"></span></span></div><div class="cap">Member 20 made a public statement.<small>One 240-character line in persona voice — the chat action, styled.</small></div></div>
+  <div class="card s-arrest"><div class="art"><div class="beam"></div><span class="tag red">NIGHT COURT</span><span class="chip"><b>05</b><span class="badge-dot gone"></span></span><span class="cuffs"></span><span class="stamp">ARRESTED</span></div><div class="cap">Member 05 was arrested. Their public voice ends here.<small>Badge lifts off the portrait; the member moves to the gallery, silent.</small></div></div>
+</div>
+</body>
+</html>
