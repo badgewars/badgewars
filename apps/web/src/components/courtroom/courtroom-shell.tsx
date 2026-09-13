@@ -31,24 +31,18 @@ const LEFT = [8, 9, 10, 11];
 const RIGHT = [12, 13, 14, 15];
 const BOTTOM = [16, 17, 18, 19, 20, 21, 22, 23];
 
-// The floor + gallery group is ~620px tall and 900px wide at design size. On
-// desktop, zoom it by the space actually available so the full table always
-// fits (grows on tall windows up to a readable cap, shrinks on short ones)
-// without page scroll. Mobile keeps zoom 1 and scrolls the compact roster.
-const COURT_GROUP_NATURAL_H = 620;
-const COURT_GROUP_NATURAL_W = 900;
-const COURT_GROUP_CHROME_PX = 280;
+// The courtroom is fluid: the floor stretches to fill the arena at any size.
+// Only when the window is too SHORT for the table's ~620px natural height does
+// zoom shrink it, so nothing ever crops and wide screens never get dead gutters.
+const COURT_NATURAL_H = 620;
+const COURT_CHROME_PX = 280;
 
 function useCourtZoom(enabled: boolean) {
   const [zoom, setZoom] = useState(1);
   useEffect(() => {
     if (!enabled) return;
-    const compute = () => {
-      const arena = document.querySelector<HTMLElement>(".courtroom-arena");
-      const byHeight = (window.innerHeight - COURT_GROUP_CHROME_PX) / COURT_GROUP_NATURAL_H;
-      const byWidth = ((arena?.clientWidth ?? COURT_GROUP_NATURAL_W) - 24) / COURT_GROUP_NATURAL_W;
-      setZoom(Math.max(0.4, Math.min(1.45, byHeight, byWidth)));
-    };
+    const compute = () =>
+      setZoom(Math.min(1, (window.innerHeight - COURT_CHROME_PX) / COURT_NATURAL_H));
     compute();
     window.addEventListener("resize", compute);
     return () => window.removeEventListener("resize", compute);
@@ -91,22 +85,22 @@ export function CourtroomShell() {
 
       <div className="flex min-h-0 flex-1 items-center justify-center md:overflow-hidden">
         <div
-          className="shrink-0"
-          style={isDesktop ? { zoom: courtZoom, width: COURT_GROUP_NATURAL_W } : undefined}
+          className="h-full w-full"
+          style={courtZoom < 1 ? { zoom: courtZoom } : undefined}
         >
-      <div className="grid grid-cols-[84px_minmax(0,1fr)_84px] grid-rows-[auto_minmax(220px,auto)_auto] gap-3 rounded-xl border border-border/60 bg-gradient-to-br from-secondary/40 to-card/60 p-4 max-md:grid-cols-1 max-md:grid-rows-none">
+      <div className="grid h-full grid-cols-[84px_minmax(0,1fr)_84px] grid-rows-[auto_minmax(0,1fr)_auto] gap-3 rounded-xl border border-border/60 bg-gradient-to-br from-secondary/40 to-card/60 p-4 max-md:h-auto max-md:grid-cols-1 max-md:grid-rows-none">
         <div className="col-span-full grid grid-cols-8 gap-2 max-md:col-span-1 max-md:hidden">
           {TOP.map((s) => (
             <Seat key={s} member={MEMBERS[s]} phase={phase} selected={!forcedTrial && selected === s} onClick={() => setSelected(s)} />
           ))}
         </div>
-        <div className="grid gap-2 max-md:hidden">
+        <div className="grid grid-rows-4 gap-2 max-md:hidden">
           {LEFT.map((s) => (
             <Seat key={s} member={MEMBERS[s]} phase={phase} selected={!forcedTrial && selected === s} onClick={() => setSelected(s)} />
           ))}
         </div>
         <Spotlight member={focus} phase={phase} onOpenHistory={() => setHistoryOpen(true)} />
-        <div className="grid gap-2 max-md:hidden">
+        <div className="grid grid-rows-4 gap-2 max-md:hidden">
           {RIGHT.map((s) => (
             <Seat key={s} member={MEMBERS[s]} phase={phase} selected={!forcedTrial && selected === s} onClick={() => setSelected(s)} />
           ))}
@@ -125,7 +119,7 @@ export function CourtroomShell() {
         </div>
       </div>
 
-        <div className="flex items-center gap-3 pt-4">
+        <div className="flex shrink-0 items-center gap-3 pt-4">
           <span className="text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
             Gallery
             <br />
