@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,18 +31,24 @@ const LEFT = [8, 9, 10, 11];
 const RIGHT = [12, 13, 14, 15];
 const BOTTOM = [16, 17, 18, 19, 20, 21, 22, 23];
 
-// The floor + gallery group is ~620px tall naturally. On desktop, zoom it by
-// the viewport height actually available so the full table always fits without
-// page scroll. Mobile keeps zoom 1 and scrolls the compact roster instead.
-const COURT_GROUP_NATURAL_PX = 620;
+// The floor + gallery group is ~620px tall and 900px wide at design size. On
+// desktop, zoom it by the space actually available so the full table always
+// fits (grows on tall windows up to a readable cap, shrinks on short ones)
+// without page scroll. Mobile keeps zoom 1 and scrolls the compact roster.
+const COURT_GROUP_NATURAL_H = 620;
+const COURT_GROUP_NATURAL_W = 900;
 const COURT_GROUP_CHROME_PX = 280;
 
 function useCourtZoom(enabled: boolean) {
   const [zoom, setZoom] = useState(1);
   useEffect(() => {
     if (!enabled) return;
-    const compute = () =>
-      setZoom(Math.min(1, (window.innerHeight - COURT_GROUP_CHROME_PX) / COURT_GROUP_NATURAL_PX));
+    const compute = () => {
+      const arena = document.querySelector<HTMLElement>(".courtroom-arena");
+      const byHeight = (window.innerHeight - COURT_GROUP_CHROME_PX) / COURT_GROUP_NATURAL_H;
+      const byWidth = ((arena?.clientWidth ?? COURT_GROUP_NATURAL_W) - 24) / COURT_GROUP_NATURAL_W;
+      setZoom(Math.max(0.4, Math.min(1.45, byHeight, byWidth)));
+    };
     compute();
     window.addEventListener("resize", compute);
     return () => window.removeEventListener("resize", compute);
@@ -76,7 +82,7 @@ export function CourtroomShell() {
   const arena = (
     <section
       aria-label="Courtroom"
-      className="courtroom-arena flex min-h-0 flex-col gap-4 overflow-y-auto rounded-xl border border-border bg-gradient-to-br from-card/60 to-background p-4 md:overflow-hidden"
+      className="courtroom-arena flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto rounded-xl border border-border bg-gradient-to-br from-card/60 to-background p-4 md:overflow-hidden"
     >
       <div className="flex justify-between text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
         <span>24 members · one table</span>
@@ -85,8 +91,8 @@ export function CourtroomShell() {
 
       <div className="flex min-h-0 flex-1 items-center justify-center md:overflow-hidden">
         <div
-          className="w-full"
-          style={isDesktop ? { zoom: courtZoom } : undefined}
+          className="shrink-0"
+          style={isDesktop ? { zoom: courtZoom, width: COURT_GROUP_NATURAL_W } : undefined}
         >
       <div className="grid grid-cols-[84px_minmax(0,1fr)_84px] grid-rows-[auto_minmax(220px,auto)_auto] gap-3 rounded-xl border border-border/60 bg-gradient-to-br from-secondary/40 to-card/60 p-4 max-md:grid-cols-1 max-md:grid-rows-none">
         <div className="col-span-full grid grid-cols-8 gap-2 max-md:col-span-1 max-md:hidden">
@@ -212,7 +218,7 @@ export function CourtroomShell() {
             </TabsList>
             <TabsContent value="court" className="mt-0 min-h-0 flex-1 overflow-hidden">
               <div className="flex h-full min-h-0 flex-col overflow-hidden p-3">
-                <div className="min-h-0 flex-1 overflow-hidden">{arena}</div>
+                <div className="flex min-h-0 flex-1 flex-col overflow-hidden">{arena}</div>
               </div>
             </TabsContent>
             <TabsContent value="chat" className="mt-0 min-h-0 flex-1 overflow-hidden border-l-0">

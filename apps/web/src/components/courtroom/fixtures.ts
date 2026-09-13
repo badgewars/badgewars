@@ -78,13 +78,7 @@ export const FIXTURE_CHATS: Record<Channel, ChatMessage[]> = {
       text: "Look at the first vote. I chose Spare before anyone defended me.",
       time: "00:39",
     },
-    {
-      kind: "chat",
-      seat: 4,
-      text: "I lost my badge, but I can still help. Read the accusations together.",
-      time: "00:51",
-      gallery: true,
-    },
+    { kind: "event", text: "Member 05 lost their badge and moved to the gallery. Their public voice ends here." },
     { kind: "chat", seat: 13, text: "We need a clear reason before removing someone else.", time: "01:03" },
   ],
   audience: [

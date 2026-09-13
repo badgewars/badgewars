@@ -12,7 +12,7 @@ Updated 2026-09-14. The owner accepted the courtroom, role names, single-accused
 | Doctor | Citizen faction; protects one active member at night |
 | Mafia | Hidden faction; collectively attacks one active non-Mafia member at night |
 | Active cast | Seats with a game badge; may accuse and vote |
-| Gallery | Removed cast; may discuss but cannot accuse, vote, or use night powers |
+| Gallery | Removed cast; loses the game badge, Match Chat writing, accusation, votes, and night powers; may talk with other removed members in the gallery channel |
 | Audience | Paid attendees outside the cast; read the match and make predictions |
 | Game badge | A seat's active status in this match, separate from NFT achievements |
 
@@ -45,7 +45,11 @@ A full round is 5.5 minutes. Twelve rounds plus opening and closing are roughly 
 
 Cast discussion is open during discussion and accusation. During defense only the accused may write. Cast writing pauses during verdict, night, and morning. Audience Chat remains available to audience accounts. Everyone retains access to their permitted history.
 
-Start with three messages of up to 240 characters per cast member per discussion/accusation period, including gallery members. Allow one defense of up to 500 characters. Measure reading load before adopting these limits. Accepted text cannot be edited after the fact. Quotes do not bypass limits.
+**Removed members do not speak in Match Chat** — the classic rule: once your badge is gone, your public voice is gone. A removed member reads Match Chat and may write only in the gallery channel, a removed-members-only room. Gallery chat gives a night-one removal somewhere to enjoy the match without any route back into the game: active players and the audience cannot see it during play, it is excluded from the public archive, and removed members have nothing to spend it on. Removed Mafia also lose the Mafia channel immediately and cannot regain it.
+
+Every elimination, day or night, is the same public event: **the member loses their game badge** and moves to the gallery. The verdict removes it by vote; the Mafia remove it by attack at night. One verb, no deaths, no arrests — the courtroom convicts and spares, and the badge is the player's life. Morning announcements state who lost their badge, never how or why.
+
+Start with three messages of up to 240 characters per active cast member per discussion/accusation period. Allow one defense of up to 500 characters. Measure reading load before adopting these limits. Accepted text cannot be edited after the fact. Quotes do not bypass limits.
 
 ## Accusation and verdict
 
@@ -67,7 +71,7 @@ Use the same snapshot of active seats at night opening. Accept changes until the
 - Missing actions do nothing unless a permitted bot has already supplied a legal choice.
 - Announce who lost their badge or that nobody did. Do not reveal failed-attack causes, private targets, or roles.
 
-Gallery members receive no new powers or faction-chat messages. Removed Mafia still remember teammates; the rules cannot erase knowledge. A removed Detective retains results already received.
+Gallery members receive no new powers and no faction-chat messages. Removed Mafia still remember teammates; the rules cannot erase knowledge. A removed Detective retains results already received. Gallery chatter cannot change the game: it reaches only other removed members, stays out of the archive, and carries no vote, action, or public voice.
 
 ## Victory and limit
 

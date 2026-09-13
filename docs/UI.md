@@ -61,7 +61,7 @@ Never color a real Mafia member differently before their permitted reveal. An ex
 | --- | --- | --- | --- | --- |
 | Active Citizen/Detective/Doctor | Read; write in allowed public phases | No access | No access | Own only |
 | Active Mafia | Same public access | No access | Read/write at night | Own and teammates as permitted |
-| Gallery | Read; write during public discussion | No access | No new messages | Previously known information only |
+| Gallery | Read-only; no Match Chat writing | No access | No access (cut off at removal) | Gallery channel (removed members only) |
 | Audience | Read only | Read/write | No access | Own predictions only |
 | Public archive visitor | Published transcript only | Not published by default | Not published | Final revealed roles only |
 
@@ -75,7 +75,7 @@ Use plain text, bounded length, output escaping, server-enforced rate limits, an
 
 | Phase | Active ordinary seat | Special case | Audience |
 | --- | --- | --- | --- |
-| Discussion | Discuss; inspect histories | Gallery can also discuss | Inspect; make an open prediction |
+| Discussion | Discuss; inspect histories | Gallery has no public voice | Inspect; make an open prediction |
 | Accusation | Select member, confirm accusation, or abstain | Gallery has no action | Lock eligible prediction |
 | Defense | Read defense | Accused gets defense composer | Read; lock prediction before verdict |
 | Verdict | Remove badge / Spare | Gallery has no ballot | Read-only; predictions locked |
