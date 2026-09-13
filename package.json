@@ -1,0 +1,16 @@
+{
+  "name": "badgewars",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run --cwd apps/web dev",
+    "build": "bun run --cwd apps/web build",
+    "lint": "bun run --cwd apps/web lint"
+  },
+  "devDependencies": {
+    "lightningcss-darwin-x64": "^1.33.0"
+  }
+}

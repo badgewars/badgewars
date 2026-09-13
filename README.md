@@ -4,7 +4,7 @@ A weekly, live-text social deduction game for tripleS fans. Twenty-four member i
 
 The current concept combines paid live participation, random cast selection, NFT badge editions, and a public leaderboard with past results, highlights, and recaps. The rules should support repeat play without a new authored season every week.
 
-**Status: design and build planning.** The [interactive courtroom study](design/courtroom.html) demonstrates layout and phase controls using local fixtures. It is not a playable multiplayer game. No production application, smart contracts, final artwork collection, or deployment exists yet.
+**Status: design, build planning, and the first app scaffold.** The [interactive courtroom study](design/courtroom.html) demonstrates layout and phase controls using local fixtures. `apps/web` is a fixture-driven shell of the same design, not yet a playable multiplayer game. No production application, smart contracts, final artwork collection, or deployment exists yet.
 
 ## Project documents
 
@@ -23,6 +23,18 @@ The current concept combines paid live participation, random cast selection, NFT
 
 The layout study is self-contained HTML with no dependencies or network calls. Open `design/courtroom.html`, or serve it with `python3 -m http.server 8080 --bind 127.0.0.1 --directory design`. This command does not open a browser. Its phase/perspective selectors are reviewer controls, not product features.
 
-There are no application install, build, or test commands yet. Add reproducible commands when the first implementation lands. Documentation changes can be checked with `git diff --check` and a review of relative links.
+## Development
+
+The app lives in `apps/web` (Next.js 15, React 19, Tailwind v4, shadcn/ui, framer-motion; bun workspaces).
+
+```
+bun install
+bun run dev     # apps/web on localhost:3000 (dev-only fixture bar included)
+bun run build   # production build; fixture controls are excluded
+```
+
+Build prerequisite on this machine: run builds with an **arm64 node** (`~/.nvm/versions/node/v24.14.0/bin/node` prepended to PATH). The default `~/.local/bin/node` is x86_64 under Rosetta and cannot load the arm64 `lightningcss` native binary bun installs. The repo pins bun's hoisted linker in `bunfig.toml` for the same reason.
+
+Documentation changes can be checked with `git diff --check` and a review of relative links.
 
 Badge Wars is a working project name. No official tripleS, MODHAUS, or Cosmo partnership or asset license is established by this repository.

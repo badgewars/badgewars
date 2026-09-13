@@ -2,6 +2,22 @@
 
 Design baseline accepted 2026-09-14. See [the interactive study](../design/courtroom.html) for phase and perspective examples. The study uses schematic portrait placeholders and invented conversation; it is not final art or real gameplay. Reviewer controls must never ship as player controls.
 
+## Feel direction (added 2026-09-14)
+
+The app shell adopts the feel of [apollo.cafe](https://apollo.cafe), built on the component base already proven in fibor (Next.js 15 App Router, Tailwind v4, shadcn/ui, framer-motion). Investigation of apollo's bundles showed its feel comes from the component layer, not its framework: motion (AnimatePresence enter/exit), hand-built selects and drawers on Radix, a three-font type system, and restrained oklch tokens.
+
+Adopted from apollo:
+
+- Dark-first zinc/oklch palette with a near-black background; light theme supported but secondary.
+- One violet accent, used only for the ring, selection states, and active nav — never as large surfaces.
+- Type trio: DM Sans Variable body, JetBrains Mono for numerals/timers (tabular, mono counts), a narrow industrial display face for brand and phase headings (Archivo stands in for apollo's commercial Halvar).
+- Motion polish: 150–200ms enter/exit transitions on overlays, spotlights, and lists; standard easings; reduced-motion honored.
+- Dense pill toolbars, 0.625rem radius, monochrome chrome where the content is the color.
+
+Not adopted: apollo's card-grid explorer composition (the courtroom scene is our centerpiece), apollo's components themselves, and any commercial font.
+
+The chrome is dark; the illustrated courtroom scene keeps its warm manga-paper art direction inside the frame. The scene is content, like apollo's photocards.
+
 ## Experience
 
 Conversation is the primary gameplay input. The courtroom shows state and makes choices visible. Manga portraits carry identity and drama. The user should always understand who is speaking, what phase is active, and whether they need to act.

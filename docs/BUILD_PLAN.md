@@ -12,7 +12,7 @@ The first playable milestone is one complete private test with 24 seats, at leas
 
 | Part | Recommendation | Reason / status |
 | --- | --- | --- |
-| Browser | React + TypeScript + Vite, CSS layout/animation | One persistent interactive scene; no 3D engine needed; proposed stack |
+| Browser | Next.js 15 App Router (React 19) + Tailwind v4 + shadcn/ui + framer-motion, pinned 2026-09-14 | Evaluated TanStack Start (apollo.cafe's framework): same SSR/server-boundary benefits, but young; Next.js is already proven in this portfolio (fibor). Verified in apollo's bundles that the "feel" lives in the component layer, not the framework. Scaffolded in `apps/web` |
 | Rules | Pure TypeScript package with explicit commands/events | Same deterministic rules can drive simulation, server prototype, and replay verification |
 | Playtest transport | Node/TypeScript HTTP + WebSocket service | Small authority for real-time playtests; not a promise of operator-free execution |
 | Playtest persistence | PostgreSQL event records, state snapshots, and unique constraints | Restore acknowledged actions and deduplicate delivery after restart |
@@ -36,7 +36,21 @@ Deliver the desktop courtroom, portrait selection, trial spotlight, gallery, pri
 
 The current [layout study](../design/courtroom.html) is a review aid for this milestone, not its production implementation. Fixtures and perspective selectors must not ship inside real player clients.
 
+**Status 2026-09-14: started.** `apps/web` is scaffolded from fibor's stack with the apollo-feel theme and a fixture-driven courtroom shell (all seven phases, seat selection, trial spotlight, gallery, chat tabs with permission-aware composer, dev-only fixture bar). Remaining for this milestone: replace fixture controls with the engine-driven state, finish every perspective's private views, and the acceptance pass below.
+
 Acceptance: the member you inspect stays selected while new chat arrives; the accused is obvious during trial; gallery has no vote; the audience cannot post into Match Chat; all controls fit at 390 and 1440 pixels. Review discussion, defense, verdict, each private night action, removal, and finale.
+
+## v0.1 — first playable version (concrete plan, added 2026-09-14)
+
+Goal: one complete local match, in the browser, no server — a human in one seat, programmed seats elsewhere, driven by the real rules. This collapses milestones 1–2 into a runnable increment and produces the engine everything later work reuses.
+
+1. `packages/rules` — pure TypeScript, zero IO. Types: `MatchState`, `Command`, `PublicEvent`, `HiddenState`. A single reducer `apply(state, command, rng, clock) → state | rejection`. Seeded deterministic RNG (e.g. `@noble/hashes`-based or hand-rolled splitmix64); all randomness injected. Implements [GAMEPLAY.md](GAMEPLAY.md): discussion, accusation with hidden-until-deadline choices and tie order, single-accused trial, Remove/Spare with ties-spare, night attack/protect/investigate with protection restriction, morning reveal, parity and round-limit wins, cancellation.
+2. Bots in the same package: `pickAction(state, seat, rng)` using only that seat's permitted observations — the same boundary a networked server will later enforce. Fallback is abstention.
+3. `apps/web` — replace the fixture state with `useReducer` over the engine; the dev fixture bar becomes a match setup panel (seed, seat count, role mix) behind the same dev-only gate. Chat renders `PublicEvent`s; private views render per-seat projections.
+4. Tests in `packages/rules` (vitest, bun test runner): replaying the accepted event log reproduces the final state; no public event, badge eligibility, or API surface ever carries role data before the finale; duplicate/late commands reject; every phase terminates with all-missing inputs; both win conditions and the round limit reachable.
+5. Acceptance: a full 24-seat match with one human seat reaches a terminal result on screen; the recorded log replays to the identical result; a second run with the same seed plays identically; no fixture controls ship in a production build.
+
+Deliberately out of v0.1: networking, auth, payments, persistence, contracts, real member art. Those are milestones 3+.
 
 ## Milestone 2 — rules and complete local match
 
