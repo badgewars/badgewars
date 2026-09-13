@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +31,25 @@ const LEFT = [8, 9, 10, 11];
 const RIGHT = [12, 13, 14, 15];
 const BOTTOM = [16, 17, 18, 19, 20, 21, 22, 23];
 
+// The floor + gallery group is ~620px tall naturally. On desktop, zoom it by
+// the viewport height actually available so the full table always fits without
+// page scroll. Mobile keeps zoom 1 and scrolls the compact roster instead.
+const COURT_GROUP_NATURAL_PX = 620;
+const COURT_GROUP_CHROME_PX = 280;
+
+function useCourtZoom(enabled: boolean) {
+  const [zoom, setZoom] = useState(1);
+  useEffect(() => {
+    if (!enabled) return;
+    const compute = () =>
+      setZoom(Math.min(1, (window.innerHeight - COURT_GROUP_CHROME_PX) / COURT_GROUP_NATURAL_PX));
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, [enabled]);
+  return enabled ? zoom : 1;
+}
+
 export function CourtroomShell() {
   const [phase, setPhase] = useState<Phase>("discussion");
   const [role, setRole] = useState<SeatRole | "Audience">("Citizen");
@@ -42,19 +61,34 @@ export function CourtroomShell() {
   const focus = MEMBERS[forcedTrial ? 6 : selected];
   const activeCount = MEMBERS.filter((m) => !m.removed).length;
 
+  const [isDesktop, setIsDesktop] = useState(true);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  const courtZoom = useCourtZoom(isDesktop);
+
   const choose = (label: string) => setChoice(label);
 
   const arena = (
     <section
       aria-label="Courtroom"
-      className="courtroom-arena flex min-h-0 flex-col gap-4 overflow-y-auto rounded-xl border border-border bg-gradient-to-br from-card/60 to-background p-4"
+      className="courtroom-arena flex min-h-0 flex-col gap-4 overflow-y-auto rounded-xl border border-border bg-gradient-to-br from-card/60 to-background p-4 md:overflow-hidden"
     >
       <div className="flex justify-between text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
         <span>24 members · one table</span>
         <span>{activeCount} active / {MEMBERS.length - activeCount} gallery</span>
       </div>
 
-      <div className="grid min-h-[440px] flex-1 grid-cols-[84px_minmax(0,1fr)_84px] grid-rows-[auto_minmax(220px,1fr)_auto] gap-3 rounded-xl border border-border/60 bg-gradient-to-br from-secondary/40 to-card/60 p-4 max-md:grid-cols-1 max-md:grid-rows-none">
+      <div className="flex min-h-0 flex-1 items-center justify-center md:overflow-hidden">
+        <div
+          className="w-full"
+          style={isDesktop ? { zoom: courtZoom } : undefined}
+        >
+      <div className="grid grid-cols-[84px_minmax(0,1fr)_84px] grid-rows-[auto_minmax(220px,auto)_auto] gap-3 rounded-xl border border-border/60 bg-gradient-to-br from-secondary/40 to-card/60 p-4 max-md:grid-cols-1 max-md:grid-rows-none">
         <div className="col-span-full grid grid-cols-8 gap-2 max-md:col-span-1 max-md:hidden">
           {TOP.map((s) => (
             <Seat key={s} member={MEMBERS[s]} phase={phase} selected={!forcedTrial && selected === s} onClick={() => setSelected(s)} />
@@ -85,16 +119,18 @@ export function CourtroomShell() {
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        <span className="text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
-          Gallery
-          <br />
-          No vote
-        </span>
-        <div className="flex flex-1 gap-2 overflow-x-auto">
-          {MEMBERS.filter((m) => m.removed).map((m) => (
-            <Seat key={m.seat} member={m} compact phase={phase} selected={selected === m.seat} onClick={() => setSelected(m.seat)} />
-          ))}
+        <div className="flex items-center gap-3 pt-4">
+          <span className="text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
+            Gallery
+            <br />
+            No vote
+          </span>
+          <div className="flex flex-1 gap-2 overflow-x-auto">
+            {MEMBERS.filter((m) => m.removed).map((m) => (
+              <Seat key={m.seat} member={m} compact phase={phase} selected={selected === m.seat} onClick={() => setSelected(m.seat)} />
+            ))}
+          </div>
+        </div>
         </div>
       </div>
     </section>
