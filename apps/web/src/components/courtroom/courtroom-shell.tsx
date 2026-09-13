@@ -85,10 +85,10 @@ export function CourtroomShell() {
 
       <div className="flex min-h-0 flex-1 items-center justify-center md:overflow-hidden">
         <div
-          className="h-full w-full"
+          className="flex h-full w-full flex-col"
           style={courtZoom < 1 ? { zoom: courtZoom } : undefined}
         >
-      <div className="grid h-full grid-cols-[84px_minmax(0,1fr)_84px] grid-rows-[auto_minmax(0,1fr)_auto] gap-3 rounded-xl border border-border/60 bg-gradient-to-br from-secondary/40 to-card/60 p-4 max-md:h-auto max-md:grid-cols-1 max-md:grid-rows-none">
+      <div className="grid min-h-0 flex-1 grid-cols-[84px_minmax(0,1fr)_84px] grid-rows-[auto_minmax(0,1fr)_auto] gap-3 rounded-xl border border-border/60 bg-gradient-to-br from-secondary/40 to-card/60 p-4 max-md:h-auto max-md:grid-cols-1 max-md:grid-rows-none">
         <div className="col-span-full grid grid-cols-8 gap-2 max-md:col-span-1 max-md:hidden">
           {TOP.map((s) => (
             <Seat key={s} member={MEMBERS[s]} phase={phase} selected={!forcedTrial && selected === s} onClick={() => setSelected(s)} />
@@ -202,7 +202,7 @@ export function CourtroomShell() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2 }}
-        className="grid min-h-0 flex-1 grid-cols-1 overflow-hidden max-lg:grid-rows-[1fr_auto] lg:grid-cols-[minmax(0,1fr)_360px] lg:grid-rows-[minmax(0,1fr)_auto]"
+        className="grid min-h-0 flex-1 grid-cols-1 overflow-hidden max-lg:grid-rows-[1fr_auto] lg:grid-cols-[minmax(0,1fr)_420px] lg:grid-rows-[minmax(0,1fr)_auto]"
       >
         <div className="min-h-0 overflow-hidden lg:col-start-1 lg:row-start-1 lg:flex lg:flex-col">
           <Tabs defaultValue="court" className="flex min-h-0 flex-1 flex-col gap-0 overflow-hidden">
