@@ -1,0 +1,38 @@
+# Local operating-system files
+.DS_Store
+._*
+Thumbs.db
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+!.env.*.example
+.tokens
+*.pem
+*.key
+
+# Dependencies and generated web output
+node_modules/
+.next/
+.nuxt/
+.output/
+.turbo/
+.vercel/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Contract build output; keep eventual source and deployment records tracked
+/out/
+/cache/
+
+# Local scratch, private exports, and runtime output
+.local/
+.venv/
+__pycache__/
+*.pyc
+*.log
+test-results/
+playwright-report/
