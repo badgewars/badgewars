@@ -26,9 +26,11 @@ Accepted direction means the owner's current product direction. A proposal is a 
 | Game | Accepted direction | Mafia / social deduction, themed around tripleS fan roleplay |
 | Cast | Accepted direction | All 24 member identities appear in each match |
 | Setting and names | Accepted direction | Manga courtroom; Mafia versus Citizens; Detective and Doctor belong to the Citizen faction |
-| Trial | Accepted direction | One accused member; active players choose Remove badge or Spare |
+| Trial | Accepted direction | One accused member; active players choose Arrest or Acquit |
 | Removal | Accepted direction | Move into the gallery; retain discussion but lose voting and night powers |
 | Layout | Accepted direction | Courtroom and persistent portraits in the center; chat right; gallery below; action bar at the bottom |
+| Show structure | Accepted direction | Day = scene turns from a fixed action deck; night = the court session (defense, Arrest/Acquit); late night = hidden actions. Scene art is portrait/backdrop/caption templates, no weekly writing |
+| Evidence beats | Accepted direction | Morning case files: 1-2 code-derived lines from the public log; never secret-dependent |
 | Chat | Accepted direction | Cast writes in Match Chat; audience reads it and writes in separate Audience Chat |
 | Format | Accepted direction | Synchronous live text; one room and one event per week at launch |
 | Schedule | Open | Friday or Saturday; exact time, time zone presentation, and duration unset |

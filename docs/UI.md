@@ -75,7 +75,9 @@ Morning case files (proposal) render as distinct monospace records with a violet
 
 | Phase | Active ordinary seat | Special case | Audience |
 | --- | --- | --- | --- |
-| Discussion | Discuss; inspect histories | Gallery has no public voice | Inspect; make an open prediction |
+| Dawn | Read case file and announcement | Gallery has no public voice | Read case file |
+| Day (scenes) | Play scene actions; scene cards render in the feed | Gallery has no actions | Watch scenes; lock predictions |
+| Discussion (day chat) | Discuss; inspect histories | Gallery has no public voice | Inspect; make an open prediction |
 | Accusation | Select member, confirm accusation, or abstain | Gallery has no action | Lock eligible prediction |
 | Defense | Read defense | Accused gets defense composer | Read; lock prediction before verdict |
 | Verdict | Arrest / Acquit | Gallery has no ballot | Read-only; predictions locked |
@@ -99,7 +101,7 @@ At a 390-pixel viewport with the keyboard open, a player must still see who is o
 
 A restrained manga courtroom: warm paper, dark ink, muted wood, and a small brass accent for game badges. Night uses a cooler lighting treatment of the same scene. Chat remains light and high contrast; avoid placing text over detailed art. Use one accent for interaction and explicit labels for destructive choices.
 
-Initial art scope: one reusable courtroom background, 24 transparent portraits in matching framing, one game-badge symbol, and one shared achievement frame. Badge-family illustrations follow the finalized catalogue. Add expression variants only after the layout proves readable.
+Initial art scope: one reusable courtroom background, 24 transparent portraits in matching framing, one game-badge symbol, one shared achievement frame, and five scene backdrops (dorm, studio, records room, courtyard, alibi wing) with caption-first scene cards; portrait expression variants serve the scene layer once the base set proves readable. Badge-family illustrations follow the finalized catalogue. Add expression variants only after the layout proves readable.
 
 Prepare a member manifest with stable IDs, verified names, portrait paths, crop/focal points, and alternative text. Keep presentation assets separate from roles. Record asset provenance and usage rights. Placeholder seat IDs in the study are not a verified roster manifest.
 
