@@ -1,5 +1,5 @@
-import { CourtroomShell } from "@/components/courtroom/courtroom-shell";
+import { BootScreen } from "@/components/landing/boot-screen";
 
 export default function Home() {
-  return <CourtroomShell />;
+  return <BootScreen />;
 }

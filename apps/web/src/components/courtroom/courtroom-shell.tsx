@@ -105,7 +105,7 @@ export function CourtroomShell() {
   );
 
   return (
-    <div data-phase={phase} className="flex h-dvh flex-col bg-background text-foreground">
+    <div data-phase={phase} className="flex h-dvh flex-col overflow-hidden bg-background text-foreground">
       <header className="flex items-center gap-5 border-b border-border bg-card/60 px-6 py-3">
         <div className="font-display text-xl font-bold tracking-tight">
           badge<span className="text-ring">wars</span>
@@ -166,21 +166,21 @@ export function CourtroomShell() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2 }}
-        className="grid min-h-0 flex-1 grid-cols-1 max-lg:grid-rows-[1fr_auto] lg:grid-cols-[minmax(0,1fr)_360px] lg:grid-rows-[minmax(0,1fr)_auto]"
+        className="grid min-h-0 flex-1 grid-cols-1 overflow-hidden max-lg:grid-rows-[1fr_auto] lg:grid-cols-[minmax(0,1fr)_360px] lg:grid-rows-[minmax(0,1fr)_auto]"
       >
-        <div className="min-h-0 lg:col-start-1 lg:row-start-1 lg:flex lg:flex-col">
-          <Tabs defaultValue="court" className="flex min-h-0 flex-1 flex-col gap-0">
+        <div className="min-h-0 overflow-hidden lg:col-start-1 lg:row-start-1 lg:flex lg:flex-col">
+          <Tabs defaultValue="court" className="flex min-h-0 flex-1 flex-col gap-0 overflow-hidden">
             <TabsList className="justify-start rounded-none border-b border-border bg-card/40 px-4 py-0 md:hidden">
               <TabsTrigger value="court">Court</TabsTrigger>
               <TabsTrigger value="chat">Chat</TabsTrigger>
             </TabsList>
-            <TabsContent value="court" className="mt-0 min-h-0 flex-1 pb-24 md:pb-0">
-              <div className="flex h-full min-h-0 flex-col p-3">
-                <div className="min-h-0 flex-1">{arena}</div>
+            <TabsContent value="court" className="mt-0 min-h-0 flex-1 overflow-hidden">
+              <div className="flex h-full min-h-0 flex-col overflow-hidden p-3">
+                <div className="min-h-0 flex-1 overflow-hidden">{arena}</div>
               </div>
             </TabsContent>
-            <TabsContent value="chat" className="mt-0 min-h-0 flex-1 border-l-0">
-              <div className="h-full md:hidden">
+            <TabsContent value="chat" className="mt-0 min-h-0 flex-1 overflow-hidden border-l-0">
+              <div className="h-full overflow-hidden md:hidden">
                 <ChatPanel phase={phase} />
               </div>
             </TabsContent>

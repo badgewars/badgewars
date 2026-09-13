@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,6 +24,16 @@ export function ChatPanel({ phase }: { phase: Phase }) {
   }, [channel, phase]);
 
   const messages = [...FIXTURE_CHATS[channel], ...extra[channel]];
+
+  // Follow new messages: jump on channel switch, follow appends when the
+  // reader is already near the bottom. Never yank someone reading history.
+  const logRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = logRef.current;
+    if (!el) return;
+    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 120;
+    el.scrollTo({ top: el.scrollHeight, behavior: nearBottom ? "smooth" : "auto" });
+  }, [messages.length, channel]);
 
   const submit = () => {
     const text = draft.trim();
@@ -62,7 +72,7 @@ export function ChatPanel({ phase }: { phase: Phase }) {
         </Tabs>
       </div>
 
-      <div role="log" aria-label="Conversation" className="min-h-0 flex-1 overflow-y-auto px-5 py-4">
+      <div ref={logRef} role="log" aria-label="Conversation" className="min-h-0 flex-1 overflow-y-auto px-5 py-4">
         <AnimatePresence initial={false}>
           {messages.map((m, i) =>
             m.kind === "event" ? (
