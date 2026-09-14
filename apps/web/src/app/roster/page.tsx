@@ -13,9 +13,10 @@ export default function Roster() {
         badge<span className="text-ring">wars</span>
       </h1>
       <p className="mt-2 max-w-prose text-sm text-muted-foreground">
-        The 24 seats of the courtroom. Portraits are fictional stand-in personas
-        generated for the build; member names and licensed likenesses land here as a
-        data change once rights are settled.
+        The 24 seats of the courtroom — the official tripleS roster in seat order
+        (S1–S24). Portraits are official promotional photos used as fan art;
+        provenance recorded in the member manifest. Before any commercial launch
+        this usage needs MODHAUS authorization — the pitch is the plan.
       </p>
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
         {MEMBERS.map((m) => (

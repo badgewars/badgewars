@@ -41,9 +41,10 @@ export type Member = {
   removed: boolean;
 };
 
+// Stage names from the official tripleS roster (S1–S24, seat order).
 export const MEMBERS: Member[] = Array.from({ length: 24 }, (_, i) => ({
   seat: i,
-  name: `Member ${String(i + 1).padStart(2, "0")}`,
+  name: ['SeoYeon', 'HyeRin', 'JiWoo', 'ChaeYeon', 'YooYeon', 'SooMin', 'NaKyoung', 'YuBin', 'Kaede', 'DaHyun', 'Kotone', 'YeonJi', 'Nien', 'SoHyun', 'Xinyu', 'Mayu', 'Lynn', 'Joobin', 'HaYeon', 'ShiOn', 'ChaeWon', 'Sullin', 'SeoAh', 'JiYeon'][i],
   removed: [4, 11, 16, 21].includes(i),
 }));
 
