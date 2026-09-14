@@ -96,7 +96,7 @@ Acceptance: no badge or score leaks a hidden role; an award is issued only once;
 
 ## Milestone 7 — art, leaderboard, and replay
 
-Replace schematic portraits with the agreed manga set, using one consistent asset manifest. Produce one courtroom and reusable lighting/action effects. Keep gameplay selectors, public member identity, and asset presentation separate.
+Replace schematic portraits with the agreed manga set, using exact likeness of the members. Produce one courtroom and reusable lighting/action effects. Keep gameplay selectors, public member identity, and asset presentation separate.
 
 Publish results and rankings first. Generate recaps and highlight candidates from structured public events. Feed the same public projection into a seekable replay. Maintain the old rules/asset version references needed to interpret historical matches.
 
