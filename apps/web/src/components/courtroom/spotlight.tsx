@@ -27,8 +27,12 @@ export function Spotlight({
         className="flex min-w-0 flex-col items-center justify-center gap-1 rounded-2xl border border-border bg-card/80 px-6 py-5 text-center shadow-sm"
       >
         <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{label}</p>
-        <div className="flex h-24 w-20 items-center justify-center rounded-lg border border-border bg-gradient-to-br from-secondary to-card shadow-[4px_4px_0_0] shadow-border/60">
-          <b className="font-display text-5xl font-bold">{member.name.replace(/^Member /, "").slice(0, 2)}</b>
+        <div className="relative h-24 w-20 overflow-hidden rounded-lg border border-border shadow-[4px_4px_0_0] shadow-border/60">
+          <img
+            src={`/roster/s${String(member.seat + 1).padStart(2, "0")}.png`}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-top"
+          />
         </div>
         <h1 className="font-display mt-2 text-2xl font-semibold">{member.name}</h1>
         <p className="max-w-[290px] text-xs text-muted-foreground">

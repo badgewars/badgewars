@@ -28,11 +28,15 @@ export function Seat({
     >
       <span
         className={cn(
-          "relative grid place-items-center rounded-md border border-border bg-gradient-to-br from-secondary to-card font-display font-semibold text-foreground transition-transform group-hover:scale-[1.04]",
+          "relative overflow-hidden rounded-md border border-border bg-gradient-to-br from-secondary to-card font-display font-semibold text-foreground transition-transform group-hover:scale-[1.04]",
           compact ? "h-8 w-7 text-xs" : "h-11 w-10 text-lg"
         )}
       >
-        {member.name.replace(/^Member /, "")}
+        <img
+          src={`/roster/s${String(member.seat + 1).padStart(2, "0")}.png`}
+          alt=""
+          className="absolute inset-0 h-full w-full rounded-[inherit] object-cover object-top"
+        />
         {phase === "finale" && !member.removed && (
           <i className="font-mono absolute -right-1 -bottom-1 not-italic text-[7px] uppercase tracking-wide text-muted-foreground">
             {fixtureRole(member.seat).slice(0, 4)}
