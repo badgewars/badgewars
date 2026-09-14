@@ -36,3 +36,4 @@ __pycache__/
 *.log
 test-results/
 playwright-report/
+design/roster/generated/

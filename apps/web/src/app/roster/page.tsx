@@ -15,7 +15,7 @@ export default function Roster() {
       </h1>
       <p className="mt-2 max-w-prose text-sm text-muted-foreground">
         The 24 seats of the courtroom — the official tripleS roster, S1–S24 in
-        seat order, manga-inked.
+        seat order, drawn in realistic manga style.
       </p>
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
         {MEMBERS.map((m) => (
@@ -27,7 +27,7 @@ export default function Roster() {
               <MangaPortrait
                 tile
                 seat={m.seat}
-                alt={`Manga-treated portrait of ${m.name}, seat ${m.seat + 1}`}
+                alt={`Manga portrait of ${m.name}, seat ${m.seat + 1}`}
                 className="aspect-square w-full object-cover object-top"
               />
               <BadgeCheck

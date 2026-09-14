@@ -107,7 +107,7 @@ The matrix, roughly 120 assets built once:
 
 | Layer | Count | Notes |
 | --- | --- | --- |
-| Portraits | 24 | Official promotional photos (agency-distributed, sourced via kprofiles, provenance recorded), manga-inked via the SVG filter set |
+| Portraits | 24 | AI-generated realistic manga portraits, restyled per-member from the official promotional photos (agency-distributed, sourced via kprofiles, reference copies in `design/roster/reference/`) via the gpt-image-1 edit pipeline |
 | Expressions | 3–4 per member | Neutral, prying, shocked, smile — serve the scene layer after the base set proves readable |
 | Poses | 3–4 per member | Idle, sit, whisper, walk — compose with backdrops for "doing stuff" |
 | Backdrops | 5 | Dorm, studio, records room, courtyard, alibi wing |
@@ -116,7 +116,7 @@ The matrix, roughly 120 assets built once:
 
 Every pairing and location combination composes from these layers at runtime; nothing per-week is drawn. One style bible governs fixed palette and proportions per member; one artist or a reference-sheet-guided pipeline keeps 24 faces consistent.
 
-Style verdict, accepted 2026-09-14: the live cards use **official promotional photography**, manga-inked via the shared SVG filter set; scene-layer compositing treats photos like the portrait layer (crop/scale).
+Style verdict, accepted 2026-09-14, revised 2026-09-14 (AI portrait pass): the live cards use **AI-generated realistic manga portraits**, restyled per-member from the official promotional photography with `gpt-image-1` image edits (`design/roster/generate-roster-pfps.mjs`). The CSS/SVG posterize-and-ink filter set is retired — the art itself carries the manga style, likeness preserved from the reference photo. Scene-layer compositing treats portraits like the photo layer (crop/scale).
 
 Sequencing, each step optional over a stable engine: (1) engine + text-only scene results in case-file styling; (2) the 24 base portraits; (3) five backdrops and visual compositing; (4) the expression/pose matrix, only once the game proves the day scenes are fun.
 
