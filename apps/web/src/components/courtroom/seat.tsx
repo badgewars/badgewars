@@ -1,6 +1,7 @@
 import { BadgeCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fixtureRole, type Member, type Phase } from "./fixtures";
+import { MangaPortrait } from "./manga-portrait";
 
 export function Seat({
   member,
@@ -32,9 +33,9 @@ export function Seat({
           compact ? "h-8 w-7 text-xs" : "h-11 w-10 text-lg"
         )}
       >
-        <img
-          src={`/roster/s${String(member.seat + 1).padStart(2, "0")}.png`}
-          alt=""
+        <MangaPortrait
+          tile
+          seat={member.seat}
           className="absolute inset-0 h-full w-full rounded-[inherit] object-cover object-top"
         />
         {phase === "finale" && !member.removed && (

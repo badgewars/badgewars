@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { Providers } from "./providers";
+import { MangaFilters } from "@/components/courtroom/manga-portrait";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${jetbrainsMono.variable} ${archivo.variable} font-sans antialiased`}
       >
+        <MangaFilters />
         <Providers>{children}</Providers>
       </body>
     </html>

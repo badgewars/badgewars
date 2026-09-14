@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MEMBERS, PHASE_LABELS, type Member, type Phase } from "./fixtures";
+import { MangaPortrait } from "./manga-portrait";
 
 export function Spotlight({
   member,
@@ -28,9 +29,9 @@ export function Spotlight({
       >
         <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{label}</p>
         <div className="relative h-24 w-20 overflow-hidden rounded-lg border border-border shadow-[4px_4px_0_0] shadow-border/60">
-          <img
-            src={`/roster/s${String(member.seat + 1).padStart(2, "0")}.png`}
-            alt=""
+          <MangaPortrait
+            seat={member.seat}
+            speedLines={forced}
             className="absolute inset-0 h-full w-full object-cover object-top"
           />
         </div>
