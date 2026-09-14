@@ -12,20 +12,13 @@ const ALL = SEATS.length ? SEATS : Array.from({ length: 24 }, (_, i) => i + 1);
 const CONCURRENCY = 4;
 
 const PROMPT =
-  "Redraw this photo as a realistic manga-style portrait while staying " +
-  "completely faithful to the photograph. Same person, same face: identical " +
-  "facial structure and proportions, realistic eye size and shape, realistic " +
-  "nose and lips, identical skin tone, hairstyle, hair color, expression, and " +
-  "head angle. Do NOT stylize the face into anime proportions — keep realistic " +
-  "human features; apply only clean manga ink linework, soft cel shading, and " +
-  "a warm palette over the realistic likeness. Tight head-and-shoulders " +
-  "close-up, face large in the frame, plain warm neutral background, square " +
+  "Redraw this photo as a realistic manga-style digital painting portrait. " +
+  "Preserve the exact likeness of the person: identical face, facial features, " +
+  "hairstyle, hair color, expression, and head angle. Style: modern realistic " +
+  "manga illustration — clean confident ink linework, soft cel shading, " +
+  "detailed expressive eyes, natural skin tones, warm palette. " +
+  "Head-and-shoulders framing, plain soft warm neutral background, square " +
   "composition. No text, no watermark, no border, no frame.";
-
-// Per-seat likeness notes appended to PROMPT (features the model tends to drop).
-const NOTES = {
-  6: "Her eyes are light blue-gray (colored lenses) — render them light blue-gray.",
-};
 
 async function generateOne(seat) {
   const id = String(seat).padStart(2, "0");
@@ -34,7 +27,7 @@ async function generateOne(seat) {
   form.append("model", "gpt-image-1");
   form.append("quality", "medium");
   form.append("size", "1024x1024");
-  form.append("prompt", PROMPT + (NOTES[seat] ? ` ${NOTES[seat]}` : ""));
+  form.append("prompt", PROMPT);
   form.append("image", new Blob([img], { type: "image/png" }), `s${id}.png`);
 
   for (let attempt = 1; attempt <= 3; attempt++) {
